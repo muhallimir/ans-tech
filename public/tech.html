@@ -4,9 +4,55 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tech</title>
+    <title>Our Tech - A&S Tech</title>
+    <meta name="description" content="The tools behind A&S Tech sites: semantic HTML, modern CSS, vanilla JavaScript and Firebase hosting.">
+    <link rel="canonical" href="https://ans-tech.web.app/tech.html">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Our Tech - A&S Tech">
+    <meta property="og:description" content="Semantic HTML, modern CSS, vanilla JavaScript and Firebase hosting. No build step, fast by default.">
+    <meta property="og:url" content="https://ans-tech.web.app/tech.html">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Our Tech - A&S Tech">
+    <meta name="twitter:description" content="Semantic HTML, modern CSS, vanilla JavaScript and Firebase hosting.">
+    <link rel="icon" type="image/png" href="images/Logo.png">
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    
+<a class="skip-link" href="#tech-main">Skip to content</a>
+<nav class="navbar" aria-label="Main navigation">
+    <div class="navbar__container">
+        <a href="index.html#home" id="navbar__logo"><img src="images/Logoc1.png" width="60" height="60" alt="A&S Tech logo" loading="eager" decoding="async">A&S Tech</a>
+        <button class="navbar__toggle" id="mobile-menu" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="navbar-menu">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </button>
+        <ul class="navbar__menu" id="navbar-menu">
+            <li class="navbar__item"><a href="index.html#home" class="navbar__links">Home</a></li>
+            <li class="navbar__item"><a href="tech.html" class="navbar__links active">Tech</a></li>
+            <li class="navbar__item"><a href="index.html#services" class="navbar__links">Services</a></li>
+            <li class="navbar__item"><a href="index.html#pricing" class="navbar__links">Pricing</a></li>
+            <li class="navbar__btn"><a href="index.html#contact" class="button">Contact Us</a></li>
+        </ul>
+    </div>
+</nav>
+<main id="tech-main" style="background:#141414;color:#fff;padding:4rem 1.5rem;max-width:800px;margin:0 auto;">
+    <h1>Built simple, built fast</h1>
+    <p style="color:#cfcfcf;margin:1rem 0 2rem;">No frameworks, no build step. Semantic HTML, modern CSS and vanilla JavaScript, hosted on Firebase.</p>
+    <section aria-label="Stack">
+        <h2>Stack</h2>
+        <ul style="line-height:2;">
+            <li>Semantic HTML with landmarks, labels and alt text</li>
+            <li>Modern CSS: grid, sticky nav, dark/light themes</li>
+            <li>Vanilla JS: carousel, modals, forms via localStorage</li>
+            <li>Firebase Hosting serving the <code>public/</code> directory</li>
+        </ul>
+    </section>
+    <p style="margin-top:2rem;"><a href="index.html#contact" class="button">Ask about your project</a></p>
+</main>
+<button id="back-to-top" aria-label="Back to top" title="Back to top">&#8593;</button>
+<script src="app.js"></script>
 </body>
 </html>

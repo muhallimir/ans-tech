@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://ans-tech.web.app/sitemap.xml

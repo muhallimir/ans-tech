@@ -1240,3 +1240,28 @@ html[data-theme="light"] .navbar__menu { background: #ffffff; }
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Accessibility: skip link + visible focus */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  background: #21d4fd;
+  color: #111;
+  padding: 12px 18px;
+  z-index: 2000;
+  border-radius: 0 0 8px 0;
+  font-weight: 700;
+  text-decoration: none;
+}
+.skip-link:focus {
+  left: 0;
+}
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid #21d4fd;
+  outline-offset: 2px;
+}
