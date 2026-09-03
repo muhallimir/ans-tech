@@ -296,10 +296,60 @@
     });
   }
 
-  // Newsletter signup (localStorage)
+  // Newsletter double opt-in (mock). Steps: email -> 6-digit code -> done.
   var newsletterForm = document.querySelector('#newsletter-form');
   var newsletterStatus = document.querySelector('#newsletter-status');
+  var nlStepEmail = document.querySelector('#nl-step-email');
+  var nlStepVerify = document.querySelector('#nl-step-verify');
+  var nlStepDone = document.querySelector('#nl-step-done');
+  var nlVerifyForm = document.querySelector('#nl-verify-form');
+  var nlVerifyEmail = document.querySelector('#nl-verify-email');
+  var nlResend = document.querySelector('#nl-resend');
+  var nlResendCountdown = document.querySelector('#nl-resend-countdown');
+  var NL_KEY = 'astech-newsletter';
+  var NL_PENDING = 'astech-newsletter-pending';
+  var NL_RESEND_KEY = 'astech-newsletter-resend';
 
+  function showNlStep(step) {
+    if (nlStepEmail) nlStepEmail.hidden = step !== 'email';
+    if (nlStepVerify) nlStepVerify.hidden = step !== 'verify';
+    if (nlStepDone) nlStepDone.hidden = step !== 'done';
+  }
+  function genSixDigit() {
+    // Mock 6-digit code. Uses crypto.getRandomValues when available for fairness,
+    // but never relies on it (older browsers fall back to Math.random).
+    var n;
+    if (window.crypto && window.crypto.getRandomValues) {
+      var buf = new Uint32Array(1);
+      window.crypto.getRandomValues(buf);
+      n = buf[0] % 1000000;
+    } else {
+      n = Math.floor(Math.random() * 1000000);
+    }
+    return String(n).padStart(6, '0');
+  }
+  function nlResendAvailable() {
+    try {
+      var last = parseInt(localStorage.getItem(NL_RESEND_KEY) || '0', 10);
+      if (!last) return 0;
+      return Math.max(0, 30 - Math.floor((Date.now() - last) / 1000));
+    } catch (err) { return 0; }
+  }
+  function startResendCountdown() {
+    if (!nlResend || !nlResendCountdown) return;
+    function tick() {
+      var s = nlResendAvailable();
+      if (s <= 0) {
+        nlResend.disabled = false;
+        nlResendCountdown.textContent = '';
+        return;
+      }
+      nlResend.disabled = true;
+      nlResendCountdown.textContent = '(wait ' + s + 's)';
+      setTimeout(tick, 1000);
+    }
+    tick();
+  }
   if (newsletterForm) {
     newsletterForm.addEventListener('submit', function (e) {
       e.preventDefault();
@@ -310,14 +360,69 @@
         input.focus();
         return;
       }
+      var code = genSixDigit();
       try {
-        var key = 'astech-newsletter';
-        var list = JSON.parse(localStorage.getItem(key) || '[]');
-        if (list.indexOf(value) === -1) list.push(value);
-        localStorage.setItem(key, JSON.stringify(list));
+        localStorage.setItem(NL_PENDING, JSON.stringify({ email: value, code: code, ts: Date.now() }));
+        localStorage.setItem(NL_RESEND_KEY, String(Date.now()));
       } catch (err) {}
-      showStatus(newsletterStatus, 'Subscribed! Watch your inbox for next month\'s tips.');
-      newsletterForm.reset();
+      if (nlVerifyEmail) nlVerifyEmail.textContent = value;
+      showNlStep('verify');
+      if (newsletterStatus) { newsletterStatus.hidden = true; }
+      var codeInput = document.querySelector('#nl-code');
+      if (codeInput) codeInput.value = '';
+      if (codeInput) codeInput.focus();
+      startResendCountdown();
+    });
+  }
+  if (nlVerifyForm) {
+    nlVerifyForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var input = document.querySelector('#nl-code');
+      var typed = (input.value || '').replace(/\D/g, '');
+      if (typed.length !== 6) {
+        showStatus(newsletterStatus, 'Please enter the 6-digit code.');
+        input.focus();
+        return;
+      }
+      try {
+        var pending = JSON.parse(localStorage.getItem(NL_PENDING) || 'null');
+        if (!pending) {
+          showStatus(newsletterStatus, 'No pending subscription. Start again.');
+          showNlStep('email');
+          return;
+        }
+        if (pending.code !== typed) {
+          showStatus(newsletterStatus, 'Code does not match. Try again.');
+          input.focus();
+          input.select();
+          return;
+        }
+        var list = JSON.parse(localStorage.getItem(NL_KEY) || '[]');
+        if (list.indexOf(pending.email) === -1) list.push(pending.email);
+        localStorage.setItem(NL_KEY, JSON.stringify(list));
+        localStorage.removeItem(NL_PENDING);
+        showNlStep('done');
+        var done = document.querySelector('#nl-done-msg');
+        if (done) done.textContent = 'Confirmed: ' + pending.email + ' is on the list.';
+      } catch (err) {
+        showStatus(newsletterStatus, 'Could not confirm. Try again.');
+      }
+    });
+  }
+  if (nlResend) {
+    nlResend.addEventListener('click', function () {
+      if (nlResendAvailable() > 0) return;
+      try {
+        var pending = JSON.parse(localStorage.getItem(NL_PENDING) || 'null');
+        if (!pending) return;
+        pending.code = genSixDigit();
+        pending.ts = Date.now();
+        localStorage.setItem(NL_PENDING, JSON.stringify(pending));
+        localStorage.setItem(NL_RESEND_KEY, String(Date.now()));
+      } catch (err) {}
+      startResendCountdown();
+      showStatus(newsletterStatus, 'New code sent. Check your inbox.');
+      setTimeout(function () { if (newsletterStatus) newsletterStatus.hidden = true; }, 4000);
     });
   }
 

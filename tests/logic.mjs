@@ -73,3 +73,21 @@ export function nextLoadStep(current, cap) {
   if (!Number.isFinite(inc)) inc = 0;
   return Math.min(capN, c + inc);
 }
+
+// 37 Newsletter mock helpers.
+// genSixDigitShape: pure format-only check that the generator returns a 6-digit string.
+export function genSixDigitShape(code) {
+  return typeof code === 'string' && /^\d{6}$/.test(code);
+}
+
+// resendRemaining: seconds left before "send again" is allowed.
+// `lastSentAt` is a timestamp in ms. `now` defaults to Date.now(). `windowSec` is the rate window.
+export function resendRemaining(lastSentAt, now, windowSec) {
+  var last = Number(lastSentAt) || 0;
+  if (!last) return 0;
+  var n = Number(now) || 0;
+  var w = Number(windowSec) || 0;
+  if (w <= 0) return 0;
+  var left = w - Math.floor((n - last) / 1000);
+  return left > 0 ? left : 0;
+}

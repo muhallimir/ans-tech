@@ -2,7 +2,7 @@
 
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { isEmail, isPhone, calcEstimate, makeBookingRef, botReply, calcRoi, nextLoadStep } from './logic.mjs';
+import { isEmail, isPhone, calcEstimate, makeBookingRef, botReply, calcRoi, nextLoadStep, genSixDigitShape, resendRemaining } from './logic.mjs';
 
 test('isEmail accepts well-formed addresses', () => {
   for (const good of ['a@b.co', 'user.name+tag@example.com', 'x@y.io', '  spaced@example.com  ']) {
@@ -172,4 +172,40 @@ test('nextLoadStep: missing increment is treated as 0', () => {
 test('nextLoadStep: garbage inputs stay finite', () => {
   const r = nextLoadStep('abc', 'x', 'y');
   assert.equal(Number.isFinite(r), true);
+});
+
+test('genSixDigitShape accepts well-formed codes', () => {
+  assert.equal(genSixDigitShape('000000'), true);
+  assert.equal(genSixDigitShape('123456'), true);
+  assert.equal(genSixDigitShape('987654'), true);
+});
+
+test('genSixDigitShape rejects malformed codes', () => {
+  for (const bad of ['', '12345', '1234567', 'abcdef', '12 456', 123456, null, undefined]) {
+    assert.equal(genSixDigitShape(bad), false, `expected ${JSON.stringify(bad)} to be invalid`);
+  }
+});
+
+test('resendRemaining: zero / missing last-sent means send is allowed', () => {
+  assert.equal(resendRemaining(0, Date.now(), 30), 0);
+  assert.equal(resendRemaining('abc', Date.now(), 30), 0);
+});
+
+test('resendRemaining: counts down from 30 then returns 0', () => {
+  const now = 1_700_000_000_000;
+  assert.equal(resendRemaining(now, now, 30), 30, 'right after send -> 30s');
+  assert.equal(resendRemaining(now, now + 5000, 30), 25, '5s after send -> 25s');
+  assert.equal(resendRemaining(now, now + 30_000, 30), 0, '30s after send -> 0');
+  assert.equal(resendRemaining(now, now + 60_000, 30), 0, 'past window -> 0');
+});
+
+test('resendRemaining: respects custom window', () => {
+  const now = 1_700_000_000_000;
+  assert.equal(resendRemaining(now, now + 4_000, 5), 1, '4s into 5s window -> 1s');
+});
+
+test('resendRemaining: garbage window falls back to 0', () => {
+  assert.equal(resendRemaining(Date.now(), Date.now(), 0), 0);
+  assert.equal(resendRemaining(Date.now(), Date.now(), -10), 0);
+  assert.equal(resendRemaining(Date.now(), Date.now(), 'x'), 0);
 });

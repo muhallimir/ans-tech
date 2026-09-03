@@ -358,11 +358,25 @@
                 <div class="info__card newsletter__card">
                     <h3>Get monthly tips</h3>
                     <p>One short email per month: speed, SEO and sales ideas. No spam.</p>
-                    <form id="newsletter-form" class="newsletter__form" novalidate>
-                        <label class="sr-only" for="nl-email">Email address</label>
-                        <input id="nl-email" name="email" type="email" required placeholder="you@example.com" autocomplete="email">
-                        <button type="submit" class="button">Subscribe</button>
-                    </form>
+                    <div id="nl-step-email">
+                        <form id="newsletter-form" class="newsletter__form" novalidate>
+                            <label class="sr-only" for="nl-email">Email address</label>
+                            <input id="nl-email" name="email" type="email" required placeholder="you@example.com" autocomplete="email">
+                            <button type="submit" class="button">Subscribe</button>
+                        </form>
+                    </div>
+                    <div id="nl-step-verify" hidden>
+                        <p class="form__hint">We sent a 6-digit code to <strong id="nl-verify-email"></strong>. Check your inbox and enter the code below.</p>
+                        <form id="nl-verify-form" class="newsletter__form" novalidate>
+                            <label class="sr-only" for="nl-code">6-digit code</label>
+                            <input id="nl-code" name="code" type="text" inputmode="numeric" pattern="\d{6}" maxlength="6" required placeholder="123456" autocomplete="one-time-code">
+                            <button type="submit" class="button">Verify</button>
+                        </form>
+                        <p class="form__hint">No code? <button type="button" id="nl-resend" class="linklike">Send again</button> <span id="nl-resend-countdown" aria-live="polite"></span></p>
+                    </div>
+                    <div id="nl-step-done" hidden>
+                        <p class="form__status form__status--ok" id="nl-done-msg">Confirmed. You are subscribed.</p>
+                    </div>
                     <p class="form__status" id="newsletter-status" role="status" aria-live="polite" hidden></p>
                 </div>
             </aside>
