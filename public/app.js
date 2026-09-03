@@ -563,4 +563,40 @@
     if (c) c.scrollIntoView({ block: 'start' });
     try { localStorage.setItem('astech-estimate', JSON.stringify(r)); } catch (err) {}
   });
+  // 14 Consultation booking with reference code
+  var bookForm = document.querySelector('#book-form');
+  var bkDate = document.querySelector('#bk-date');
+  if (bkDate) {
+    try { bkDate.min = new Date().toISOString().split('T')[0]; } catch (err) {}
+  }
+  if (bookForm) {
+    bookForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var n = document.querySelector('#bk-name');
+      var em = document.querySelector('#bk-email');
+      var tm = document.querySelector('#bk-time');
+      var today = new Date().toISOString().split('T')[0];
+      var badN = !n.value.trim() || n.value.trim().length < 2;
+      var badE = !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em.value.trim());
+      var badD = !bkDate.value || bkDate.value < today;
+      var badT = !tm.value;
+      document.querySelector('#bk-name-error').hidden = !badN;
+      document.querySelector('#bk-email-error').hidden = !badE;
+      document.querySelector('#bk-date-error').hidden = !badD;
+      document.querySelector('#bk-time-error').hidden = !badT;
+      if (badN || badE || badD || badT) return;
+      var ref = 'ANS-' + Date.now().toString(36).toUpperCase().slice(-6);
+      var booking = { name: n.value.trim(), email: em.value.trim(), date: bkDate.value, time: tm.value, ref: ref };
+      try {
+        var arr = JSON.parse(localStorage.getItem('astech-bookings') || '[]');
+        arr.push(booking);
+        localStorage.setItem('astech-bookings', JSON.stringify(arr));
+      } catch (err) {}
+      var st = document.querySelector('#book-status');
+      st.textContent = 'Booked! ' + booking.date + ' at ' + booking.time + ' EAT. Reference: ' + ref + '. We emailed ' + booking.email + '.';
+      st.hidden = false;
+      bookForm.reset();
+      if (bkDate) { try { bkDate.min = new Date().toISOString().split('T')[0]; } catch (err2) {} }
+    });
+  }
 })();

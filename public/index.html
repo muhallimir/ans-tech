@@ -463,6 +463,23 @@
         </div>
     </section>
 
+    <section id="booking" aria-label="Book a consultation">
+        <h2 class="section__title">Book a free consultation</h2>
+        <p class="section__subtitle">Pick a date and time. Get an instant reference code.</p>
+        <form id="book-form" class="book__form" novalidate>
+            <div class="form__row">
+                <div class="form__field"><label for="bk-name">Name</label><input id="bk-name" required minlength="2" placeholder="Your name"><p class="field__error" id="bk-name-error" hidden>Enter your name.</p></div>
+                <div class="form__field"><label for="bk-email">Email</label><input id="bk-email" type="email" required placeholder="you@example.com"><p class="field__error" id="bk-email-error" hidden>Enter a valid email.</p></div>
+            </div>
+            <div class="form__row">
+                <div class="form__field"><label for="bk-date">Date (today or later)</label><input id="bk-date" type="date" required><p class="field__error" id="bk-date-error" hidden>Pick today or a future date.</p></div>
+                <div class="form__field"><label for="bk-time">Time slot (EAT)</label><select id="bk-time" required><option value="">Select time</option><option>09:00</option><option>11:00</option><option>14:00</option><option>16:00</option></select><p class="field__error" id="bk-time-error" hidden>Pick a time slot.</p></div>
+            </div>
+            <button class="button" type="submit">Confirm booking</button>
+            <p class="form__status" id="book-status" role="status" aria-live="polite" hidden></p>
+        </form>
+    </section>
+
     <!-- Footer Section -->
     <footer class="footer__container">
         <nav class="footer__links" aria-label="Footer">

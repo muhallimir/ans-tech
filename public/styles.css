@@ -1345,3 +1345,11 @@ html[data-theme="light"] .est__card { background: #fff; border-color: #e2e2e6; c
 html[data-theme="light"] .est__card label { color: #333; }
 html[data-theme="light"] .est__result { background: #f0f9ff; }
 html[data-theme="light"] .est__result p { color: #111; }
+
+/* 14 Booking */
+#booking { background: #141414; padding: 5rem 1rem; }
+.book__form { max-width: 720px; margin: 0 auto; background: #1e1e1e; border: 1px solid #2c2c2c; border-radius: 12px; padding: 1.75rem 1.5rem; color: #fff; }
+.book__form .form__field input, .book__form .form__field select { width: 100%; background: #141414; border: 1px solid #3a3a3a; color: #fff; border-radius: 8px; padding: 12px; }
+html[data-theme="light"] #booking { background: #f6f6f8; }
+html[data-theme="light"] .book__form { background: #fff; border-color: #e2e2e6; color: #1a1a1a; }
+html[data-theme="light"] .book__form .form__field input, html[data-theme="light"] .book__form .form__field select { background: #fff; color: #111; border-color: #c9c9d0; }
