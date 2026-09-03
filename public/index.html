@@ -434,6 +434,35 @@
         </article>
     </section>
 
+    <section id="estimator" aria-label="Quote estimator">
+        <h2 class="section__title">Instant quote estimator</h2>
+        <p class="section__subtitle">Tick boxes, get a price range and timeline. No email needed.</p>
+        <div class="est__grid">
+            <div class="est__card">
+                <h3>Project type</h3>
+                <label><input type="radio" name="est-type" value="800" data-days="5" checked> Landing page (from $800)</label>
+                <label><input type="radio" name="est-type" value="1800" data-days="10"> Business site (from $1800)</label>
+                <label><input type="radio" name="est-type" value="3200" data-days="18"> E-commerce (from $3200)</label>
+                <label><input type="radio" name="est-type" value="2400" data-days="10"> AI chat add-on (from $2400)</label>
+            </div>
+            <div class="est__card">
+                <h3>Features</h3>
+                <label><input type="checkbox" class="est-feat" value="400" data-days="2"> Blog + newsletter (+$400)</label>
+                <label><input type="checkbox" class="est-feat" value="600" data-days="3"> Payments setup (+$600)</label>
+                <label><input type="checkbox" class="est-feat" value="300" data-days="2"> Copy polish (+$300)</label>
+                <label><input type="checkbox" class="est-feat" value="350" data-days="2"> SEO + speed pass (+$350)</label>
+            </div>
+            <div class="est__card">
+                <h3>Timeline</h3>
+                <label><input type="radio" name="est-speed" value="1" checked> Standard (x1.0)</label>
+                <label><input type="radio" name="est-speed" value="1.25"> Fast, 25% rush (x1.25)</label>
+                <label><input type="radio" name="est-speed" value="0.9"> Flexible, 10% off (x0.9)</label>
+                <div class="est__result" role="status" aria-live="polite"><p id="est-price"><strong>$800 - $960</strong></p><p id="est-time">About 5-7 days</p></div>
+                <button class="button" id="est-cta">Send this estimate to contact</button>
+            </div>
+        </div>
+    </section>
+
     <!-- Footer Section -->
     <footer class="footer__container">
         <nav class="footer__links" aria-label="Footer">

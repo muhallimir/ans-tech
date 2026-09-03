@@ -1330,3 +1330,18 @@ html[data-theme="light"] .job__card p { color: #333; }
 html[data-theme="light"] #blog { background: #f6f6f8; }
 html[data-theme="light"] .blog__card, html[data-theme="light"] .blog__view { background: #fff; border-color: #e2e2e6; color: #1a1a1a; }
 html[data-theme="light"] .blog__card p, html[data-theme="light"] .blog__body p { color: #333; }
+
+/* 13 Estimator */
+#estimator { background: #141414; padding: 5rem 1rem; }
+.est__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; max-width: 1000px; margin: 0 auto; }
+.est__card { background: #1e1e1e; border: 1px solid #2c2c2c; border-radius: 12px; padding: 1.5rem; color: #fff; }
+.est__card h3 { margin-bottom: 0.75rem; }
+.est__card label { display: block; color: #cfcfcf; padding: 6px 0; cursor: pointer; }
+.est__result { background: #141414; border: 1px dashed #21d4fd; border-radius: 8px; padding: 12px; margin: 1rem 0; }
+.est__result p { color: #fff; }
+#est-cta { width: 100%; }
+html[data-theme="light"] #estimator { background: #f6f6f8; }
+html[data-theme="light"] .est__card { background: #fff; border-color: #e2e2e6; color: #1a1a1a; }
+html[data-theme="light"] .est__card label { color: #333; }
+html[data-theme="light"] .est__result { background: #f0f9ff; }
+html[data-theme="light"] .est__result p { color: #111; }

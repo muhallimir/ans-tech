@@ -532,4 +532,35 @@
       if (q) openPost(q, false);
     } catch (err) {}
   }
+  // 13 Quote estimator
+  function calcEstimate() {
+    var type = document.querySelector('input[name="est-type"]:checked');
+    var speed = document.querySelector('input[name="est-speed"]:checked');
+    if (!type) return;
+    var base = parseInt(type.value, 10) || 0;
+    var days = parseInt(type.getAttribute('data-days'), 10) || 5;
+    var feats = Array.prototype.slice.call(document.querySelectorAll('.est-feat:checked'));
+    feats.forEach(function (f) { base += parseInt(f.value, 10) || 0; days += parseInt(f.getAttribute('data-days'), 10) || 0; });
+    var mult = speed ? parseFloat(speed.value) : 1;
+    var low = Math.round(base * mult);
+    var high = Math.round(base * mult * 1.2);
+    var p = document.querySelector('#est-price');
+    var t = document.querySelector('#est-time');
+    if (p) p.innerHTML = '<strong>$' + low + ' - $' + high + '</strong>';
+    if (t) t.textContent = 'About ' + days + '-' + (days + 3) + ' days (' + (speed ? speed.parentElement.textContent.trim() : 'Standard') + ')';
+    return { low: low, high: high, days: days };
+  }
+  document.addEventListener('change', function (e) {
+    if (e.target.matches('input[name="est-type"], input[name="est-speed"], .est-feat')) calcEstimate();
+  });
+  if (document.querySelector('#est-price')) calcEstimate();
+  var estCta = document.querySelector('#est-cta');
+  if (estCta) estCta.addEventListener('click', function () {
+    var r = calcEstimate() || { low: 800, high: 960, days: 5 };
+    var msg = document.querySelector('#cf-message');
+    if (msg) msg.value = 'Hi! Estimator says $' + r.low + '-$' + r.high + ', ~' + r.days + ' days. I need: ';
+    var c = document.querySelector('#contact');
+    if (c) c.scrollIntoView({ block: 'start' });
+    try { localStorage.setItem('astech-estimate', JSON.stringify(r)); } catch (err) {}
+  });
 })();
