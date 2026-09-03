@@ -827,4 +827,72 @@
     e.preventDefault();
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
+  // 33 ROI calculator
+  function calcRoi(traffic, cvrPct, aov, upliftPct) {
+    var t = Math.max(0, Number(traffic) || 0);
+    var cvr = Math.max(0, Number(cvrPct) || 0) / 100;
+    var a = Math.max(0, Number(aov) || 0);
+    var u = Math.max(0, Number(upliftPct) || 0);
+    var orders = t * cvr;
+    var current = orders * a;
+    var newOrders = orders * (1 + u);
+    var newRev = newOrders * a;
+    var uplift = newRev - current;
+    return { current: current, uplift: uplift, newRev: newRev, annual: uplift * 12 };
+  }
+  function fmtMoney(n) {
+    if (!isFinite(n)) return '$0';
+    if (Math.abs(n) >= 1000) return '$' + Math.round(n).toLocaleString('en-US');
+    return '$' + Math.round(n);
+  }
+  var roiTraffic = document.querySelector('#roi-traffic');
+  var roiCvr = document.querySelector('#roi-cvr');
+  var roiAov = document.querySelector('#roi-aov');
+  var roiUplift = document.querySelector('#roi-uplift');
+  if (roiTraffic && roiCvr && roiAov && roiUplift) {
+    var pairs = [
+      [roiTraffic, document.querySelector('#roi-traffic-num')],
+      [roiCvr, document.querySelector('#roi-cvr-num')],
+      [roiAov, document.querySelector('#roi-aov-num')]
+    ];
+    function renderRoi() {
+      var r = calcRoi(roiTraffic.value, roiCvr.value, roiAov.value, roiUplift.value);
+      var ce = document.querySelector('#roi-current');
+      var ue = document.querySelector('#roi-uplift-amt');
+      var ne = document.querySelector('#roi-new');
+      var ae = document.querySelector('#roi-annual');
+      var note = document.querySelector('#roi-note');
+      if (ce) ce.textContent = fmtMoney(r.current) + ' / mo';
+      if (ue) ue.textContent = fmtMoney(r.uplift) + ' / mo';
+      if (ne) ne.textContent = fmtMoney(r.newRev) + ' / mo';
+      if (ae) ae.textContent = fmtMoney(r.annual) + ' / yr';
+      if (note) note.textContent = 'Assumes a ' + (Math.round((Number(roiUplift.value) || 0) * 100)) + '% lift from speed, SEO and checkout improvements.';
+    }
+    pairs.forEach(function (p) {
+      if (!p[0] || !p[1]) return;
+      p[0].addEventListener('input', function () { p[1].value = p[0].value; renderRoi(); });
+      p[1].addEventListener('input', function () {
+        var v = Number(p[1].value);
+        if (!isFinite(v)) return;
+        var min = Number(p[0].min), max = Number(p[0].max);
+        if (v < min) v = min; if (v > max) v = max;
+        p[0].value = v; renderRoi();
+      });
+    });
+    roiUplift.addEventListener('change', renderRoi);
+    renderRoi();
+    var roiCta = document.querySelector('#roi-cta');
+    if (roiCta) roiCta.addEventListener('click', function () {
+      var r = calcRoi(roiTraffic.value, roiCvr.value, roiAov.value, roiUplift.value);
+      var msg = document.querySelector('#cf-message');
+      var svc = document.querySelector('#cf-service');
+      if (msg) msg.value = 'ROI estimate: ' + fmtMoney(r.uplift) + '/mo uplift (' + (Math.round((Number(roiUplift.value) || 0) * 100)) + '%), annualised ' + fmtMoney(r.annual) + '. Visitors ' + roiTraffic.value + ', CVR ' + roiCvr.value + '%, AOV $' + roiAov.value + '. I want to book a free audit.';
+      if (svc) svc.value = 'SEO & Growth';
+      try { localStorage.setItem('astech-roi', JSON.stringify(r)); } catch (err) {}
+      var c = document.querySelector('#contact');
+      if (c) c.scrollIntoView({ block: 'start' });
+      var name = document.querySelector('#cf-name');
+      if (name) name.focus();
+    });
+  }
 })();

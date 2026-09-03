@@ -46,3 +46,17 @@ export function botReply(q) {
   if (q.indexOf('human') > -1 || q.indexOf('call') > -1) return 'Leave your email in the contact form and we call back within one business day.';
   return 'Got it! For pricing ask pricing, for timing ask timeline, for help ask support. Or use Contact below.';
 }
+
+// 33 ROI calculator: pure copy of the math used by the ROI section.
+// traffic: monthly visitors; cvrPct: conversion rate in percent; aov: avg order value in $;
+// upliftPct: scenario multiplier in percent (0.3 = +30%).
+export function calcRoi(traffic, cvrPct, aov, upliftPct) {
+  var t = Math.max(0, Number(traffic) || 0);
+  var cvr = Math.max(0, Number(cvrPct) || 0) / 100;
+  var a = Math.max(0, Number(aov) || 0);
+  var u = Math.max(0, Number(upliftPct) || 0);
+  var current = t * cvr * a;
+  var uplift = current * u;
+  var newRev = current + uplift;
+  return { current: current, uplift: uplift, newRev: newRev, annual: uplift * 12 };
+}

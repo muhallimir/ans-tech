@@ -2,7 +2,7 @@
 
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { isEmail, isPhone, calcEstimate, makeBookingRef, botReply } from './logic.mjs';
+import { isEmail, isPhone, calcEstimate, makeBookingRef, botReply, calcRoi } from './logic.mjs';
 
 test('isEmail accepts well-formed addresses', () => {
   for (const good of ['a@b.co', 'user.name+tag@example.com', 'x@y.io', '  spaced@example.com  ']) {
@@ -109,4 +109,46 @@ test('botReply routes "human" / "call" to callback answer', () => {
 test('botReply returns fallback for unknown input', () => {
   assert.match(botReply('what is the meaning of life'), /Got it!/);
   assert.match(botReply(''), /Got it!/);
+});
+
+test('calcRoi: default scenario 3000 visitors, 1.5% CVR, $45 AOV, 30% uplift', () => {
+  const r = calcRoi(3000, 1.5, 45, 0.30);
+  // orders = 3000 * 0.015 = 45; current = 45 * 45 = 2025
+  // uplift = 2025 * 0.3 = 607.5
+  // newRev = 2025 + 607.5 = 2632.5
+  // annual = 607.5 * 12 = 7290
+  assert.equal(r.current, 2025);
+  assert.equal(r.uplift, 607.5);
+  assert.equal(r.newRev, 2632.5);
+  assert.equal(r.annual, 7290);
+});
+
+test('calcRoi: conservative 15% scenario produces one fifth the 75% uplift math', () => {
+  const aggressive = calcRoi(10000, 2, 30, 0.75);
+  const conservative = calcRoi(10000, 2, 30, 0.15);
+  // same base; uplift scales linearly with scenario
+  assert.equal(aggressive.uplift, conservative.uplift * 5);
+});
+
+test('calcRoi: zero inputs produce zero output, not NaN', () => {
+  const r = calcRoi(0, 0, 0, 0);
+  assert.equal(r.current, 0);
+  assert.equal(r.uplift, 0);
+  assert.equal(r.newRev, 0);
+  assert.equal(r.annual, 0);
+});
+
+test('calcRoi: garbage inputs are coerced to zero, never NaN', () => {
+  const r = calcRoi('abc', 'x', null, undefined);
+  assert.equal(Number.isFinite(r.current), true);
+  assert.equal(Number.isFinite(r.uplift), true);
+  assert.equal(Number.isFinite(r.annual), true);
+  assert.equal(r.current, 0);
+});
+
+test('calcRoi: negative inputs are clamped to zero', () => {
+  const r = calcRoi(-100, -5, -50, -0.5);
+  assert.equal(r.current, 0);
+  assert.equal(r.uplift, 0);
+  assert.equal(r.annual, 0);
 });

@@ -457,6 +457,33 @@
         </article>
     </section>
 
+    <section id="roi" aria-label="ROI calculator">
+        <h2 class="section__title">ROI calculator</h2>
+        <p class="section__subtitle">Estimate the monthly revenue lift from better speed, SEO and conversion. Sliders and number inputs stay in sync.</p>
+        <div class="roi__grid">
+            <div class="roi__card">
+                <h3>Your numbers</h3>
+                <label class="roi__field"><span>Monthly visitors</span><input id="roi-traffic" type="range" min="100" max="50000" step="100" value="3000"><input id="roi-traffic-num" type="number" min="100" max="50000" step="100" value="3000" aria-label="Monthly visitors number"></label>
+                <label class="roi__field"><span>Conversion rate (%)</span><input id="roi-cvr" type="range" min="0.1" max="10" step="0.1" value="1.5"><input id="roi-cvr-num" type="number" min="0.1" max="10" step="0.1" value="1.5" aria-label="Conversion rate percent"></label>
+                <label class="roi__field"><span>Average order value ($)</span><input id="roi-aov" type="range" min="5" max="500" step="1" value="45"><input id="roi-aov-num" type="number" min="5" max="500" step="1" value="45" aria-label="Average order value dollars"></label>
+                <label class="roi__field"><span>Improvement scenario</span><select id="roi-uplift">
+                    <option value="0.15">Conservative (+15%)</option>
+                    <option value="0.30" selected>Realistic (+30%)</option>
+                    <option value="0.50">Aggressive (+50%)</option>
+                </select></label>
+            </div>
+            <div class="roi__card roi__card--result">
+                <h3>Estimated impact</h3>
+                <p class="roi__line"><span>Current monthly revenue</span><strong id="roi-current">$0</strong></p>
+                <p class="roi__line roi__line--big"><span>Projected uplift</span><strong id="roi-uplift-amt">$0 / mo</strong></p>
+                <p class="roi__line"><span>New monthly revenue</span><strong id="roi-new">$0</strong></p>
+                <p class="roi__line"><span>Annualised gain</span><strong id="roi-annual">$0 / yr</strong></p>
+                <p class="roi__note" id="roi-note">Assumes a 30% lift from speed, SEO and checkout improvements.</p>
+                <button class="button" id="roi-cta" type="button">Book a free audit (pre-fills contact)</button>
+            </div>
+        </div>
+    </section>
+
     <section id="estimator" aria-label="Quote estimator">
         <h2 class="section__title">Instant quote estimator</h2>
         <p class="section__subtitle">Tick boxes, get a price range and timeline. No email needed.</p>
