@@ -171,8 +171,70 @@
             </article>
         </div>
     </section>
-    <section id="testimonials" aria-label="Testimonials"></section>
-    <section id="faq" aria-label="Frequently asked questions"></section>
+    <section id="testimonials" aria-label="Testimonials">
+        <h2 class="section__title">What clients say</h2>
+        <p class="section__subtitle">Real feedback from businesses we have helped launch and grow.</p>
+        <div class="carousel" role="region" aria-roledescription="carousel" aria-label="Client testimonials">
+            <div class="carousel__track" aria-live="polite">
+                <figure class="carousel__slide is-active" role="group" aria-roledescription="slide" aria-label="1 of 4">
+                    <blockquote>"A&S Tech rebuilt our site in a week. Enquiries doubled and the contact form just works."</blockquote>
+                    <figcaption><strong>Sarah M.</strong> <span>Boutique owner</span></figcaption>
+                    <p class="stars" aria-label="Rated 5 out of 5">★★★★★</p>
+                </figure>
+                <figure class="carousel__slide" role="group" aria-roledescription="slide" aria-label="2 of 4">
+                    <blockquote>"The online shop is fast on phones. Checkout is simple and orders come straight to email."</blockquote>
+                    <figcaption><strong>David K.</strong> <span>E-commerce seller</span></figcaption>
+                    <p class="stars" aria-label="Rated 5 out of 5">★★★★★</p>
+                </figure>
+                <figure class="carousel__slide" role="group" aria-roledescription="slide" aria-label="3 of 4">
+                    <blockquote>"The chat widget answers FAQs instantly. We capture leads even when the shop is closed."</blockquote>
+                    <figcaption><strong>Amelia R.</strong> <span>Salon manager</span></figcaption>
+                    <p class="stars" aria-label="Rated 4 out of 5">★★★★☆</p>
+                </figure>
+                <figure class="carousel__slide" role="group" aria-roledescription="slide" aria-label="4 of 4">
+                    <blockquote>"Clear pricing, quick replies, and they taught us how to update pages ourselves."</blockquote>
+                    <figcaption><strong>James T.</strong> <span>Restaurant owner</span></figcaption>
+                    <p class="stars" aria-label="Rated 5 out of 5">★★★★★</p>
+                </figure>
+            </div>
+            <div class="carousel__controls">
+                <button class="carousel__btn" id="carousel-prev" aria-label="Previous testimonial">&#10094;</button>
+                <div class="carousel__dots" role="tablist" aria-label="Choose testimonial">
+                    <button role="tab" aria-selected="true" aria-label="Show testimonial 1" data-slide="0" class="is-active"></button>
+                    <button role="tab" aria-selected="false" aria-label="Show testimonial 2" data-slide="1"></button>
+                    <button role="tab" aria-selected="false" aria-label="Show testimonial 3" data-slide="2"></button>
+                    <button role="tab" aria-selected="false" aria-label="Show testimonial 4" data-slide="3"></button>
+                </div>
+                <button class="carousel__btn" id="carousel-next" aria-label="Next testimonial">&#10095;</button>
+            </div>
+        </div>
+    </section>
+    <section id="faq" aria-label="Frequently asked questions">
+        <h2 class="section__title">Frequently asked questions</h2>
+        <p class="section__subtitle">Quick answers. Still unsure? <a href="#contact">Ask us directly</a>.</p>
+        <div class="faq__list">
+            <div class="faq__item">
+                <button class="faq__question" aria-expanded="false">How fast can you launch my site?<span class="faq__icon" aria-hidden="true">+</span></button>
+                <div class="faq__answer" hidden><p>Landing pages ship in 3-5 days. Business sites take 1-2 weeks. Shops with payments take 2-4 weeks depending on product count and content readiness.</p></div>
+            </div>
+            <div class="faq__item">
+                <button class="faq__question" aria-expanded="false">Do I own my website and domain?<span class="faq__icon" aria-hidden="true">+</span></button>
+                <div class="faq__answer" hidden><p>Yes. Your domain is registered in your name, and the site files and content are yours. We hand over logins and a launch checklist at handover.</p></div>
+            </div>
+            <div class="faq__item">
+                <button class="faq__question" aria-expanded="false">Can you take online payments?<span class="faq__icon" aria-hidden="true">+</span></button>
+                <div class="faq__answer" hidden><p>Yes. We wire up Stripe, PayPal, or mobile-money-ready checkout flows, plus order emails, shipping rules and discount codes.</p></div>
+            </div>
+            <div class="faq__item">
+                <button class="faq__question" aria-expanded="false">Will my site work on phones?<span class="faq__icon" aria-hidden="true">+</span></button>
+                <div class="faq__answer" hidden><p>Every layout is mobile-first and tested at 360px, 768px and desktop widths. Images are compressed and lazy-loaded for speed.</p></div>
+            </div>
+            <div class="faq__item">
+                <button class="faq__question" aria-expanded="false">What does a care plan cover?<span class="faq__icon" aria-hidden="true">+</span></button>
+                <div class="faq__answer" hidden><p>Monthly updates, uptime checks, two small content edits per month and priority fixes. Cancel anytime with 30 days notice.</p></div>
+            </div>
+        </div>
+    </section>
     <section id="contact" aria-label="Contact"></section>
 
     <!-- Footer Section -->

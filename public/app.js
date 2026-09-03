@@ -142,4 +142,69 @@
       applyBilling(billingSwitch.getAttribute('aria-checked') !== 'true');
     });
   }
+
+  // Testimonials carousel: auto + manual controls
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.carousel__slide'));
+  var dots = Array.prototype.slice.call(document.querySelectorAll('.carousel__dots button'));
+  var prevBtn = document.querySelector('#carousel-prev');
+  var nextBtn = document.querySelector('#carousel-next');
+  var current = 0;
+  var timer = null;
+  var AUTOPLAY_MS = 6000;
+
+  function showSlide(index) {
+    if (!slides.length) return;
+    current = (index + slides.length) % slides.length;
+    slides.forEach(function (slide, i) {
+      slide.classList.toggle('is-active', i === current);
+    });
+    dots.forEach(function (dot, i) {
+      dot.classList.toggle('is-active', i === current);
+      dot.setAttribute('aria-selected', i === current ? 'true' : 'false');
+    });
+  }
+
+  function restartAutoplay() {
+    stopAutoplay();
+    timer = setInterval(function () { showSlide(current + 1); }, AUTOPLAY_MS);
+  }
+
+  function stopAutoplay() {
+    if (timer) { clearInterval(timer); timer = null; }
+  }
+
+  if (slides.length) {
+    if (prevBtn) prevBtn.addEventListener('click', function () { showSlide(current - 1); restartAutoplay(); });
+    if (nextBtn) nextBtn.addEventListener('click', function () { showSlide(current + 1); restartAutoplay(); });
+    dots.forEach(function (dot) {
+      dot.addEventListener('click', function () {
+        showSlide(parseInt(dot.getAttribute('data-slide'), 10) || 0);
+        restartAutoplay();
+      });
+    });
+    var carousel = document.querySelector('.carousel');
+    if (carousel) {
+      carousel.addEventListener('mouseenter', stopAutoplay);
+      carousel.addEventListener('mouseleave', restartAutoplay);
+      carousel.addEventListener('focusin', stopAutoplay);
+      carousel.addEventListener('focusout', restartAutoplay);
+    }
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowLeft' && slides.length) showSlide(current - 1);
+      if (e.key === 'ArrowRight' && slides.length) showSlide(current + 1);
+    });
+    restartAutoplay();
+    showSlide(0);
+  }
+
+  // FAQ accordion with aria-expanded
+  var faqQuestions = Array.prototype.slice.call(document.querySelectorAll('.faq__question'));
+  faqQuestions.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var expanded = btn.getAttribute('aria-expanded') === 'true';
+      var answer = btn.parentElement.querySelector('.faq__answer');
+      btn.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+      if (answer) answer.hidden = expanded;
+    });
+  });
 })();
