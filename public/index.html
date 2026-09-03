@@ -369,6 +369,38 @@
         </div>
     </section>
 
+    <section id="map" aria-label="Service areas">
+        <h2 class="section__title">Where we work</h2>
+        <p class="section__subtitle">Hover a pin to see the city, click to open the local team member and case study.</p>
+        <div class="map__wrap">
+            <svg id="map-svg" class="map__svg" viewBox="0 0 600 360" role="img" aria-labelledby="map-title">
+                <title id="map-title">Service area map with city pins</title>
+                <defs>
+                    <radialGradient id="map-glow" cx="50%" cy="50%" r="50%">
+                        <stop offset="0%" stop-color="#21d4fd" stop-opacity="0.25"/>
+                        <stop offset="100%" stop-color="#21d4fd" stop-opacity="0"/>
+                    </radialGradient>
+                </defs>
+                <rect width="600" height="360" fill="#1e1e1e"/>
+                <rect x="20" y="20" width="560" height="320" fill="#252525" stroke="#444" rx="8"/>
+                <ellipse cx="300" cy="180" rx="280" ry="160" fill="url(#map-glow)"/>
+                <path d="M40 240 Q120 200 200 230 T360 220 T560 250" stroke="#3a3a3a" stroke-width="2" fill="none"/>
+                <path d="M40 100 Q150 80 240 110 T440 90 T560 130" stroke="#3a3a3a" stroke-width="2" fill="none"/>
+                <text x="40" y="60" fill="#666" font-size="11" font-family="monospace">LAT -2.0</text>
+                <text x="500" y="60" fill="#666" font-size="11" font-family="monospace">LON 41.0</text>
+                <g id="map-pins" aria-label="Cities"></g>
+            </svg>
+            <aside class="map__panel" id="map-panel" hidden aria-live="polite">
+                <button class="map__close" id="map-close" aria-label="Close city details">&times;</button>
+                <h3 id="map-city-name"></h3>
+                <p class="map__meta" id="map-city-meta"></p>
+                <p id="map-city-blurb"></p>
+                <p class="map__case"><strong>Local case:</strong> <span id="map-city-case"></span></p>
+                <a href="#contact" class="button map__cta">Brief us about your city</a>
+            </aside>
+        </div>
+    </section>
+
     <section id="case-studies" aria-label="Case studies">
         <h2 class="section__title">Case studies</h2>
         <p class="section__subtitle">Three recent wins, with numbers. Open a card for challenge, solution and results.</p>

@@ -948,4 +948,65 @@
       if (name) name.focus();
     });
   }
+  // 36 Service-area map
+  var CITIES = [
+    { name: 'Dar es Salaam', x: 380, y: 240, meta: 'HQ - East Africa hub', blurb: 'Full team, three open projects, weekly office hours.', case: 'Boutique Makeover: +112% enquiries in 60 days.' },
+    { name: 'Arusha', x: 310, y: 170, meta: 'Northern Tanzania', blurb: 'Safari lodges, coffee farms, tour operators.', case: 'Fresh Shop Online: 2.1s load, 38% mobile checkout lift.' },
+    { name: 'Mwanza', x: 230, y: 200, meta: 'Lake Victoria', blurb: 'Local services and lake-side hospitality.', case: 'Salon Auto-Booking: 24/7 leads, 300+ FAQs auto-answered.' },
+    { name: 'Dodoma', x: 320, y: 220, meta: 'Capital region', blurb: 'Government and NGO clients, bilingual EN/SW copy.', case: 'Boutique Makeover applied to a Dodoma cafe chain.' },
+    { name: 'Zanzibar', x: 420, y: 250, meta: 'Coast, tourism', blurb: 'Hotels, tours, restaurants with multi-currency.', case: 'Restaurant landing: 4-day build, online menu + booking.' },
+    { name: 'Nairobi', x: 360, y: 120, meta: 'Remote-first', blurb: 'Same-day async, EAT-friendly overlap.', case: 'Uptime + SEO kit shipped across 3 Kenyan clients.' }
+  ];
+  var pinGroup = document.querySelector('#map-pins');
+  var tooltip = document.createElement('div');
+  tooltip.className = 'map__tooltip';
+  tooltip.setAttribute('hidden', '');
+  tooltip.setAttribute('role', 'tooltip');
+  document.body.appendChild(tooltip);
+  var mapPanel = document.querySelector('#map-panel');
+  var mapClose = document.querySelector('#map-close');
+  if (pinGroup) {
+    CITIES.forEach(function (city, idx) {
+      var g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+      g.setAttribute('class', 'map__pin');
+      g.setAttribute('tabindex', '0');
+      g.setAttribute('role', 'button');
+      g.setAttribute('aria-label', city.name + ', click for details');
+      g.setAttribute('data-city', idx);
+      var c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      c.setAttribute('cx', city.x); c.setAttribute('cy', city.y); c.setAttribute('r', 6);
+      g.appendChild(c);
+      pinGroup.appendChild(g);
+      g.addEventListener('mouseenter', function (e) { showTooltip(city.name, e); });
+      g.addEventListener('mousemove', function (e) { positionTooltip(e); });
+      g.addEventListener('mouseleave', function () { tooltip.hidden = true; });
+      g.addEventListener('focus', function () { showTooltip(city.name, { clientX: city.x, clientY: city.y }); });
+      g.addEventListener('blur', function () { tooltip.hidden = true; });
+      g.addEventListener('click', function () { openCity(idx); });
+      g.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openCity(idx); } });
+    });
+    function showTooltip(text, e) {
+      tooltip.textContent = text;
+      tooltip.hidden = false;
+      positionTooltip(e);
+    }
+    function positionTooltip(e) {
+      tooltip.style.left = (e.clientX + 12) + 'px';
+      tooltip.style.top = (e.clientY + 12) + 'px';
+    }
+    function openCity(idx) {
+      var c = CITIES[idx];
+      if (!c || !mapPanel) return;
+      document.querySelector('#map-city-name').textContent = c.name;
+      document.querySelector('#map-city-meta').textContent = c.meta;
+      document.querySelector('#map-city-blurb').textContent = c.blurb;
+      document.querySelector('#map-city-case').textContent = c.case;
+      mapPanel.hidden = false;
+      try { localStorage.setItem('astech-last-city', c.name); } catch (err) {}
+    }
+    if (mapClose) mapClose.addEventListener('click', function () { mapPanel.hidden = true; });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && mapPanel && !mapPanel.hidden) mapPanel.hidden = true;
+    });
+  }
 })();
