@@ -321,6 +321,46 @@
         </div>
     </section>
 
+    <section id="case-studies" aria-label="Case studies">
+        <h2 class="section__title">Case studies</h2>
+        <p class="section__subtitle">Three recent wins, with numbers. Open a card for challenge, solution and results.</p>
+        <div class="cases__grid">
+            <article class="case__card">
+                <div class="case__logo" aria-hidden="true">BM</div>
+                <h3>Boutique Makeover</h3>
+                <p class="case__metric"><strong>+112% enquiries</strong> in 60 days</p>
+                <p>8-page site rebuild with WhatsApp chat and SEO titles.</p>
+                <button class="service__btn case__btn" data-case="0">View case study</button>
+            </article>
+            <article class="case__card">
+                <div class="case__logo" aria-hidden="true">FS</div>
+                <h3>Fresh Shop Online</h3>
+                <p class="case__metric"><strong>2.1s load</strong>, 38% mobile checkout lift</p>
+                <p>Catalogue + Stripe/PayPal checkout with order emails.</p>
+                <button class="service__btn case__btn" data-case="1">View case study</button>
+            </article>
+            <article class="case__card">
+                <div class="case__logo" aria-hidden="true">GR</div>
+                <h3>Salon Auto-Booking</h3>
+                <p class="case__metric"><strong>24/7 leads</strong>, 300+ FAQs auto-answered</p>
+                <p>AI chat widget with lead handoff to email and WhatsApp.</p>
+                <button class="service__btn case__btn" data-case="2">View case study</button>
+            </article>
+        </div>
+        <div class="modal" id="case-modal" hidden role="dialog" aria-modal="true" aria-labelledby="case-modal-title">
+            <div class="modal__backdrop" data-case-close></div>
+            <div class="modal__content">
+                <button class="modal__close" data-case-close aria-label="Close case study">&times;</button>
+                <h3 id="case-modal-title"></h3>
+                <p class="case__modal-meta" id="case-modal-meta"></p>
+                <h4>Challenge</h4><p id="case-challenge"></p>
+                <h4>Solution</h4><p id="case-solution"></p>
+                <h4>Results</h4><p id="case-results"></p>
+                <a href="#contact" class="button modal__cta" data-case-close-link>Get similar results</a>
+            </div>
+        </div>
+    </section>
+
     <!-- Footer Section -->
     <footer class="footer__container">
         <nav class="footer__links" aria-label="Footer">

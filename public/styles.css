@@ -1265,3 +1265,18 @@ textarea:focus-visible {
   outline: 3px solid #21d4fd;
   outline-offset: 2px;
 }
+
+/* 08 Case studies */
+#case-studies { background: #141414; padding: 5rem 1rem; }
+.cases__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.25rem; max-width: 1000px; margin: 0 auto; }
+.case__card { background: #1e1e1e; border: 1px solid #2c2c2c; border-radius: 12px; padding: 1.75rem 1.5rem; color: #fff; }
+.case__card:hover { border-color: #21d4fd; }
+.case__logo { width: 56px; height: 56px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.3rem; color: #111; background-image: linear-gradient(to top, #b721ff 0%, #21d4fd 100%); margin-bottom: 0.75rem; }
+.case__metric { color: #21d4fd; margin: 0.5rem 0; }
+.case__card p { color: #cfcfcf; line-height: 1.5; margin-bottom: 0.75rem; }
+.case__modal-meta { color: #21d4fd; font-size: 0.95rem; margin-bottom: 1rem; }
+.modal__content h4 { color: #fff; margin: 0.75rem 0 0.25rem; }
+html[data-theme="light"] #case-studies { background: #f6f6f8; }
+html[data-theme="light"] .case__card { background: #fff; border-color: #e2e2e6; color: #1a1a1a; }
+html[data-theme="light"] .case__card p { color: #333; }
+html[data-theme="light"] .modal__content h4 { color: #141414; }

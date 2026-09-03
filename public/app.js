@@ -359,4 +359,38 @@
 
   // Reduced motion: stop carousel autoplay
   if (prefersReducedMotion) stopAutoplay();
+  // 08 Case studies data + modal
+  var CASES = [
+    { title: 'Boutique Makeover (BM)', meta: '+112% enquiries in 60 days | 8 pages | 2 weeks', challenge: 'Old site was slow on phones, no clear contact path, invisible on Google.', solution: 'Rebuilt 8 pages mobile-first, added click-to-chat, map, contact form, SEO titles and speed pass.', results: '+112% enquiries, bounce down 40%, 95+ PageSpeed on mobile.' },
+    { title: 'Fresh Shop Online (FS)', meta: '2.1s load | 38% mobile checkout lift | 3 weeks', challenge: 'Instagram-only sales, manual orders, no payments or stock view.', solution: 'Catalogue with cart, Stripe/PayPal checkout, order emails, shipping rules and discount codes.', results: '38% checkout lift on phones, 2.1s load, orders straight to email.' },
+    { title: 'Salon Auto-Booking (GR)', meta: '24/7 leads | 300+ FAQs answered | 10 days', challenge: 'Missed calls after hours, same questions daily, no night-time capture.', solution: 'AI chat widget trained on services/prices/hours, lead handoff to email/WhatsApp with human fallback.', results: '300+ auto-answered chats/month, night leads captured, staff time saved.' }
+  ];
+  var caseModal = document.querySelector('#case-modal');
+  function openCase(i) {
+    if (!caseModal) return;
+    var c = CASES[i];
+    if (!c) return;
+    document.querySelector('#case-modal-title').textContent = c.title;
+    document.querySelector('#case-modal-meta').textContent = c.meta;
+    document.querySelector('#case-challenge').textContent = c.challenge;
+    document.querySelector('#case-solution').textContent = c.solution;
+    document.querySelector('#case-results').textContent = c.results;
+    caseModal.hidden = false;
+    document.body.style.overflow = 'hidden';
+    var b = caseModal.querySelector('.modal__close');
+    if (b) b.focus();
+  }
+  function closeCase() {
+    if (!caseModal || caseModal.hidden) return;
+    caseModal.hidden = true;
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('click', function (e) {
+    var btn = e.target.closest('.case__btn');
+    if (btn) { openCase(parseInt(btn.getAttribute('data-case'), 10) || 0); return; }
+    if (e.target.closest('[data-case-close]')) closeCase();
+    var l = e.target.closest('[data-case-close-link]');
+    if (l) closeCase();
+  });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeCase(); });
 })();
