@@ -786,4 +786,13 @@
   var printBtn = document.querySelector('#proposal-print');
   if (printBtn) printBtn.addEventListener('click', function () { refreshProposal(); window.print(); });
   if (document.querySelector('#proposal-card')) refreshProposal();
+  // 29 Social share copy-link
+  var shareBtn = document.querySelector('#share-page');
+  if (shareBtn) shareBtn.addEventListener('click', function () {
+    var url = window.location.origin + window.location.pathname;
+    var st = document.querySelector('#share-status');
+    function done(m) { st.textContent = m; st.hidden = false; }
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(url).then(function () { done('Page link copied!'); }, function () { done('Copy this: ' + url); });
+    else done('Copy this: ' + url);
+  });
 })();

@@ -1495,6 +1495,15 @@ html[data-theme="light"] .proposal__card p { color: #333; }
 .sitemap__grid a { background: #1e1e1e; border: 1px solid #2c2c2c; color: #21d4fd; border-radius: 999px; padding: 8px 16px; text-decoration: none; font-size: 0.9rem; }
 html[data-theme="light"] #sitemap { background: #f6f6f8; }
 html[data-theme="light"] .sitemap__grid a { background: #fff; border-color: #e2e2e6; }
+
+/* 29 Share */
+#share { background: #141414; padding: 4rem 1rem; text-align: center; }
+.share__row { display: flex; gap: 0.6rem; justify-content: center; flex-wrap: wrap; max-width: 800px; margin: 0 auto; }
+.share__link { text-decoration: none; display: inline-block; }
+.share__status { max-width: 480px; margin: 1rem auto 0 !important; }
+.referral__note { color: #cfcfcf; margin-top: 1rem; }
+html[data-theme="light"] #share { background: #f6f6f8; }
+html[data-theme="light"] .referral__note { color: #333; }
 @media print {
   .navbar, #chat-widget, #cookie-banner, .a11y__bar, #back-to-top, #progress-bar, .proposal__actions { display: none !important; }
   body { background: #fff !important; }
