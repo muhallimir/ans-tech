@@ -1417,3 +1417,19 @@ html[data-theme="light"] #compare { background: #f6f6f8; }
 html[data-theme="light"] .compare__table { background: #fff; color: #111; }
 html[data-theme="light"] .compare__table th, html[data-theme="light"] .compare__table td { border-color: #e5e5ea; }
 html[data-theme="light"] .compare__table thead th { background: #eee; }
+
+/* 20 SLA + 21 Status shared */
+#support, #status { background: #141414; padding: 4rem 1rem; }
+.sla__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; max-width: 900px; margin: 0 auto; }
+.sla__card { background: #1e1e1e; border: 1px solid #2c2c2c; border-radius: 12px; padding: 1.5rem; color: #fff; text-align: center; }
+.sla__card--hl { border-color: #f77062; }
+.sla__time { color: #21d4fd; font-size: 1.3rem; margin: 0.5rem 0; font-weight: 700; }
+.sla__card p { color: #cfcfcf; }
+.sla__note { text-align: center; color: #cfcfcf; margin-top: 1.25rem; }
+.sla__note a { color: #21d4fd; }
+.status-dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; vertical-align: baseline; }
+.status-dot.ok { background: #2ecc71; box-shadow: 0 0 8px #2ecc71; }
+.status-dot.warn { background: #f1c40f; }
+html[data-theme="light"] #support, html[data-theme="light"] #status { background: #f6f6f8; }
+html[data-theme="light"] .sla__card { background: #fff; border-color: #e2e2e6; color: #111; }
+html[data-theme="light"] .sla__card p, html[data-theme="light"] .sla__note { color: #333; }
