@@ -464,4 +464,72 @@
       jobForm.reset();
     });
   }
+  // 12 Blog: data + ?post=slug rendering + share-copy-link
+  var POSTS = [
+    { slug: 'fast-site-checklist', title: '5-point fast-site checklist', meta: '4 min read | Speed', excerpt: 'Compress images, lazy-load below fold, and keep fonts lean.', body: ['Slow phones kill enquiries. Start with image compression under 200KB each.', 'Lazy-load below-the-fold images, preload your hero, and use one font family.', 'Result: sub-3s loads on 4G, better bounce and more form fills.'] },
+    { slug: 'shop-without-headache', title: 'Launch a shop without headache', meta: '5 min read | E-commerce', excerpt: 'Catalogue, payments, shipping rules, order emails.', body: ['List 10-50 products first with clear photos and prices.', 'Wire Stripe/PayPal, set shipping rules and discount codes, test checkout on a phone.', 'You get order emails, simple stock view and staff training.'] },
+    { slug: 'ai-chat-that-books', title: 'AI chat that books while you sleep', meta: '3 min read | Automation', excerpt: 'FAQs + booking flow with human fallback.', body: ['Feed the bot your services, prices and hours.', 'Add lead handoff to email/WhatsApp plus a human fallback line.', 'Capture night-time leads with a weekly digest of conversations.'] }
+  ];
+  var blogList = document.querySelector('#blog-list');
+  var blogView = document.querySelector('#blog-view');
+  function renderBlogList() {
+    if (!blogList) return;
+    blogList.innerHTML = '';
+    POSTS.forEach(function (p) {
+      var a = document.createElement('article');
+      a.className = 'blog__card';
+      var h = document.createElement('h3');
+      h.textContent = p.title;
+      var m = document.createElement('p');
+      m.className = 'case__modal-meta';
+      m.textContent = p.meta;
+      var ex = document.createElement('p');
+      ex.textContent = p.excerpt;
+      var b = document.createElement('button');
+      b.className = 'service__btn';
+      b.textContent = 'Read article';
+      b.setAttribute('data-post', p.slug);
+      a.appendChild(h); a.appendChild(m); a.appendChild(ex); a.appendChild(b);
+      blogList.appendChild(a);
+    });
+  }
+  function openPost(slug, push) {
+    var p = POSTS.filter(function (x) { return x.slug === slug; })[0];
+    if (!p || !blogView) return;
+    document.querySelector('#blog-title').textContent = p.title;
+    document.querySelector('#blog-meta').textContent = p.meta;
+    var body = document.querySelector('#blog-body');
+    body.innerHTML = '';
+    p.body.forEach(function (para) { var el = document.createElement('p'); el.textContent = para; body.appendChild(el); });
+    blogList.hidden = true;
+    blogView.hidden = false;
+    if (push !== false) { try { history.replaceState(null, '', '?post=' + p.slug + '#blog'); } catch (err) {} }
+    blogView.scrollIntoView({ block: 'start' });
+  }
+  function closePost() {
+    if (!blogView) return;
+    blogView.hidden = true;
+    if (blogList) blogList.hidden = false;
+    try { history.replaceState(null, '', window.location.pathname + '#blog'); } catch (err) {}
+  }
+  if (blogList) {
+    renderBlogList();
+    document.addEventListener('click', function (e) {
+      var b = e.target.closest('[data-post]');
+      if (b) openPost(b.getAttribute('data-post'));
+    });
+    var back = document.querySelector('#blog-back');
+    if (back) back.addEventListener('click', closePost);
+    var share = document.querySelector('#blog-share');
+    if (share) share.addEventListener('click', function () {
+      var url = window.location.href;
+      function done(msg) { var s = document.querySelector('#blog-status'); s.textContent = msg; s.hidden = false; }
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(url).then(function () { done('Link copied! Share it anywhere.'); }, function () { done('Copy this URL: ' + url); });
+      else done('Copy this URL: ' + url);
+    });
+    try {
+      var q = new URLSearchParams(window.location.search).get('post');
+      if (q) openPost(q, false);
+    } catch (err) {}
+  }
 })();
