@@ -1433,3 +1433,11 @@ html[data-theme="light"] .compare__table thead th { background: #eee; }
 html[data-theme="light"] #support, html[data-theme="light"] #status { background: #f6f6f8; }
 html[data-theme="light"] .sla__card { background: #fff; border-color: #e2e2e6; color: #111; }
 html[data-theme="light"] .sla__card p, html[data-theme="light"] .sla__note { color: #333; }
+
+/* 21 Status block */
+.status__card { max-width: 720px; margin: 0 auto; background: #1e1e1e; border: 1px solid #2c2c2c; border-radius: 12px; padding: 1.5rem; color: #fff; }
+.status__card p { margin: 0.6rem 0 0.3rem; }
+.uptime__bar { height: 10px; background: #2a2a2a; border-radius: 999px; overflow: hidden; margin-bottom: 0.6rem; }
+.uptime__bar span { display: block; height: 100%; background: linear-gradient(90deg, #2ecc71, #21d4fd); }
+.incident__note { color: #999; font-size: 0.9rem; margin-top: 1rem; }
+html[data-theme="light"] .status__card { background: #fff; border-color: #e2e2e6; color: #111; }
