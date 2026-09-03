@@ -20,6 +20,10 @@
     <meta name="twitter:image" content="https://ans-tech.web.app/images/Logoc1.png">
     <link rel="icon" type="image/png" href="images/Logo.png">
     <link rel="apple-touch-icon" href="images/Logo.png">
+    <!-- 30 Performance: preconnect fonts, preload hero SVG, CSS stays render-blocking by design -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" href="images/pic4.svg" as="image" type="image/svg+xml">
     <link rel="stylesheet" href="styles.css" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
     <link rel="stylesheet" href="https://fonts.gstatic.com">
@@ -85,7 +89,8 @@
         <button class="main__btn"><a href="#services">Get Started</a></button>
     </div>
     <div class="main__img--container">
-    <img src="images/pic4.svg" alt="Illustration of creative technology solutions" id="main__img" fetchpriority="high" decoding="async" />
+    <!-- 30 Performance: explicit width/height prevents CLS, fetchpriority high for LCP hero -->
+    <img src="images/pic4.svg" alt="Illustration of creative technology solutions" id="main__img" width="600" height="500" fetchpriority="high" decoding="async" />
             </div>
         </div>
     </main>
@@ -709,6 +714,7 @@
     </div>
     </footer>
     <button id="back-to-top" aria-label="Back to top" title="Back to top">&#8593;</button>
-    <script src="app.js"></script>
+    <!-- 30 Performance: app.js at end of body = non-blocking; vanilla, no framework JS -->
+    <script src="app.js" defer></script>
 </body>
 </html> 
