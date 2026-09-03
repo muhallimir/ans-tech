@@ -420,6 +420,7 @@
   ];
   var resList = document.querySelector('#resources-list');
   if (resList) {
+    resList.innerHTML = '';
     RESOURCES.forEach(function (r) {
       var li = document.createElement('li');
       li.className = 'resource__item';
@@ -1209,4 +1210,60 @@
     }
     window.addEventListener('scroll', checkBottom, { passive: true });
   }
+  // 40 Service-tile hover preview (desktop) and long-press (touch)
+  var serviceCards = Array.prototype.slice.call(document.querySelectorAll('.service__card[data-preview]'));
+  var TOUCH_LONG_MS = 450;
+  function populatePreview(card) {
+    var preview = card.querySelector('.service__preview');
+    var list = card.querySelector('.service__preview-list');
+    if (!preview || !list || list.children.length) return;
+    var text = card.getAttribute('data-preview') || '';
+    text.split(/\r?\n/).forEach(function (line) {
+      var t = line.trim();
+      if (!t) return;
+      var li = document.createElement('li');
+      li.textContent = t;
+      list.appendChild(li);
+    });
+  }
+  function showPreview(card) {
+    populatePreview(card);
+    var p = card.querySelector('.service__preview');
+    if (p) p.hidden = false;
+  }
+  function hidePreview(card) {
+    var p = card.querySelector('.service__preview');
+    if (p) p.hidden = true;
+    card.classList.remove('is-touch-preview');
+  }
+  serviceCards.forEach(function (card) {
+    var touchTimer = null;
+    var touchStart = null;
+    card.addEventListener('mouseenter', function () { showPreview(card); });
+    card.addEventListener('mouseleave', function () {
+      hidePreview(card);
+      if (touchTimer) { clearTimeout(touchTimer); touchTimer = null; }
+    });
+    card.addEventListener('focusin', function () { showPreview(card); });
+    card.addEventListener('focusout', function (e) {
+      if (card.contains(e.relatedTarget)) return;
+      hidePreview(card);
+    });
+    card.addEventListener('touchstart', function () {
+      touchStart = Date.now();
+      touchTimer = setTimeout(function () {
+        card.classList.add('is-touch-preview');
+        showPreview(card);
+      }, TOUCH_LONG_MS);
+    }, { passive: true });
+    card.addEventListener('touchend', function () {
+      if (touchTimer) { clearTimeout(touchTimer); touchTimer = null; }
+      var dt = Date.now() - (touchStart || 0);
+      if (dt < TOUCH_LONG_MS) hidePreview(card);
+    });
+    card.addEventListener('touchcancel', function () {
+      if (touchTimer) { clearTimeout(touchTimer); touchTimer = null; }
+      hidePreview(card);
+    });
+  });
 })();

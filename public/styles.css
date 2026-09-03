@@ -1484,6 +1484,28 @@ html[data-theme="light"] .radio__group label { color: #333; }
   #proposal-card { display: block !important; }
 }
 
+/* 40 Service subpage (shared by /services/*.html) */
+.service__page { max-width: 800px; margin: 6rem auto 4rem; padding: 0 1.25rem; color: #fff; }
+.service__page h1 { color: #21d4fd; font-size: 2.4rem; margin-top: 0.5rem; }
+.service__page h2 { color: #fe5196; margin-top: 2rem; }
+.service__page .lead { color: #cfcfcf; font-size: 1.1rem; }
+.service__page ul { color: #d6d6d6; line-height: 1.7; }
+.service__page .crumb a { color: #21d4fd; text-decoration: none; }
+.service__page .crumb a:hover { text-decoration: underline; }
+.service__page .button { display: inline-block; margin-right: 0.5rem; margin-top: 0.5rem; }
+
+/* 40 Service hover preview */
+.service__preview { position: absolute; left: 8px; right: 8px; bottom: 8px; background: #1e1e1e; border: 1px solid #2c2c2c; border-radius: 10px; padding: 0.8rem; box-shadow: 0 10px 30px rgba(0,0,0,0.6); color: #fff; z-index: 5; }
+.service__preview[hidden] { display: none; }
+.service__preview-list { list-style: none; padding: 0; margin: 0 0 0.5rem 0; font-size: 0.85rem; color: #d6d6d6; }
+.service__preview-list li { padding: 2px 0; }
+.service__readmore { color: #21d4fd; text-decoration: none; font-size: 0.85rem; }
+.service__readmore:hover { text-decoration: underline; }
+.service__card { overflow: visible; }
+@media (hover: none) {
+  .service__card.is-touch-preview .service__preview { display: block; }
+}
+
 /* 39 Engagement modal */
 .engage__modal { position: fixed; inset: 0; z-index: 1400; display: flex; align-items: center; justify-content: center; padding: 1rem; }
 .engage__modal[hidden] { display: none; }
