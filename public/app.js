@@ -676,4 +676,31 @@
   } else {
     statNums.forEach(function (n) { n.textContent = n.getAttribute('data-target'); });
   }
+  // 18 Portfolio filter + lightbox modal
+  var filterBtns = Array.prototype.slice.call(document.querySelectorAll('.filter__btn'));
+  var workCards = Array.prototype.slice.call(document.querySelectorAll('.work__card'));
+  var workModal = document.querySelector('#work-modal');
+  filterBtns.forEach(function (b) {
+    b.addEventListener('click', function () {
+      filterBtns.forEach(function (x) { x.classList.remove('is-active'); });
+      b.classList.add('is-active');
+      var f = b.getAttribute('data-filter');
+      workCards.forEach(function (c) { c.hidden = !(f === 'all' || c.getAttribute('data-cat') === f); });
+    });
+  });
+  function openWork(card) {
+    if (!workModal || !card) return;
+    document.querySelector('#work-modal-title').textContent = card.getAttribute('data-title');
+    document.querySelector('#work-modal-desc').textContent = card.getAttribute('data-desc');
+    workModal.hidden = false;
+    document.body.style.overflow = 'hidden';
+  }
+  function closeWork() { if (!workModal || workModal.hidden) return; workModal.hidden = true; document.body.style.overflow = ''; }
+  document.addEventListener('click', function (e) {
+    var card = e.target.closest('.work__card');
+    if (card) { openWork(card); return; }
+    if (e.target.closest('[data-work-close]')) closeWork();
+    if (e.target.closest('[data-work-close-link]')) closeWork();
+  });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeWork(); });
 })();

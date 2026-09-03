@@ -511,6 +511,29 @@
         </div>
     </section>
 
+    <section id="work" aria-label="Selected work">
+        <h2 class="section__title">Selected work</h2>
+        <p class="section__subtitle">Filter by type, click any card for details.</p>
+        <div class="filter__bar" role="group" aria-label="Filter work">
+            <button class="filter__btn is-active" data-filter="all">All</button>
+            <button class="filter__btn" data-filter="web">Web</button>
+            <button class="filter__btn" data-filter="mobile">Mobile</button>
+            <button class="filter__btn" data-filter="cloud">Cloud</button>
+        </div>
+        <div class="work__grid" id="work-grid">
+            <article class="work__card" data-cat="web" data-title="Boutique site" data-desc="8 pages, 2 weeks, +112% enquiries. Mobile-first with WhatsApp chat."><h3>Boutique site</h3><p class="work__tag">Web</p></article>
+            <article class="work__card" data-cat="web" data-title="Restaurant landing" data-desc="One-pager, 4 days, online menu + table booking form."><h3>Restaurant landing</h3><p class="work__tag">Web</p></article>
+            <article class="work__card" data-cat="mobile" data-title="Shop PWA" data-desc="Phone-first shop, add-to-home-screen, 2.1s load."><h3>Shop PWA</h3><p class="work__tag">Mobile</p></article>
+            <article class="work__card" data-cat="mobile" data-title="Salon booking flow" data-desc="Chat-led booking, works great on small screens."><h3>Salon booking flow</h3><p class="work__tag">Mobile</p></article>
+            <article class="work__card" data-cat="cloud" data-title="Order emails" data-desc="Firebase-hosted forms + order email pipeline."><h3>Order emails</h3><p class="work__tag">Cloud</p></article>
+            <article class="work__card" data-cat="cloud" data-title="Uptime + SEO kit" data-desc="Sitemap, robots, analytics and monthly uptime checks."><h3>Uptime + SEO kit</h3><p class="work__tag">Cloud</p></article>
+        </div>
+        <div class="modal" id="work-modal" hidden role="dialog" aria-modal="true" aria-labelledby="work-modal-title">
+            <div class="modal__backdrop" data-work-close></div>
+            <div class="modal__content"><button class="modal__close" data-work-close aria-label="Close work details">&times;</button><h3 id="work-modal-title"></h3><p id="work-modal-desc"></p><a href="#contact" class="button modal__cta" data-work-close-link>Start similar project</a></div>
+        </div>
+    </section>
+
     <!-- Footer Section -->
     <footer class="footer__container">
         <nav class="footer__links" aria-label="Footer">

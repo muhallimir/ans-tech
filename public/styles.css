@@ -1391,3 +1391,16 @@ html[data-theme="light"] .marquee__track span { background: #fff; border-color: 
 .stat p { color: #cfcfcf; margin-top: 0.4rem; }
 html[data-theme="light"] #stats { background: #f6f6f8; }
 html[data-theme="light"] .stat { background: #fff; border-color: #e2e2e6; color: #111; }
+
+/* 18 Portfolio filter */
+#work { background: #141414; padding: 5rem 1rem; }
+.filter__bar { display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap; margin-bottom: 1.5rem; }
+.filter__btn { background: #2a2a2a; border: 1px solid #444; color: #fff; border-radius: 999px; padding: 8px 18px; cursor: pointer; }
+.filter__btn.is-active { background: #f77062; border-color: #f77062; }
+.work__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; max-width: 1000px; margin: 0 auto; }
+.work__card { background: #1e1e1e; border: 1px solid #2c2c2c; border-radius: 12px; padding: 1.5rem; color: #fff; cursor: pointer; }
+.work__card:hover { border-color: #21d4fd; }
+.work__card[hidden] { display: none; }
+.work__tag { color: #21d4fd; font-size: 0.85rem; margin-top: 0.4rem; }
+html[data-theme="light"] #work { background: #f6f6f8; }
+html[data-theme="light"] .work__card { background: #fff; border-color: #e2e2e6; color: #111; }
