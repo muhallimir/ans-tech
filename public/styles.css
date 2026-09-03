@@ -1404,3 +1404,16 @@ html[data-theme="light"] .stat { background: #fff; border-color: #e2e2e6; color:
 .work__tag { color: #21d4fd; font-size: 0.85rem; margin-top: 0.4rem; }
 html[data-theme="light"] #work { background: #f6f6f8; }
 html[data-theme="light"] .work__card { background: #fff; border-color: #e2e2e6; color: #111; }
+
+/* 19 Compare table */
+#compare { background: #141414; padding: 5rem 1rem; }
+.table__wrap { overflow-x: auto; max-width: 900px; margin: 0 auto; border-radius: 12px; border: 1px solid #2c2c2c; }
+.compare__table { width: 100%; min-width: 560px; border-collapse: collapse; background: #1e1e1e; color: #fff; }
+.compare__table th, .compare__table td { padding: 12px 14px; text-align: left; border-bottom: 1px solid #2a2a2a; }
+.compare__table thead th { background: #2a2a2a; }
+.compare__table .hl { background: rgba(33,212,253,0.12); }
+.compare__table thead th.hl { background: rgba(247,112,98,0.25); }
+html[data-theme="light"] #compare { background: #f6f6f8; }
+html[data-theme="light"] .compare__table { background: #fff; color: #111; }
+html[data-theme="light"] .compare__table th, html[data-theme="light"] .compare__table td { border-color: #e5e5ea; }
+html[data-theme="light"] .compare__table thead th { background: #eee; }
