@@ -1452,3 +1452,13 @@ html[data-theme="light"] .status__card { background: #fff; border-color: #e2e2e6
 html[data-theme="light"] #changelog { background: #f6f6f8; }
 html[data-theme="light"] .log__item { background: #fff; border-color: #e2e2e6; color: #111; }
 html[data-theme="light"] .log__item p { color: #333; }
+
+/* 23 Docs search */
+#docs-faq { background: #141414; padding: 5rem 1rem; }
+.docs__wrap { max-width: 720px; margin: 0 auto; }
+#docs-search { width: 100%; background: #1e1e1e; border: 1px solid #3a3a3a; color: #fff; border-radius: 8px; padding: 12px; margin-bottom: 1rem; font-size: 1rem; }
+.docs__empty { color: #fe8fb5; background: #1e1e1e; border: 1px dashed #fe5196; border-radius: 8px; padding: 12px; margin-top: 1rem; }
+.docs__empty a { color: #21d4fd; }
+html[data-theme="light"] #docs-faq { background: #f6f6f8; }
+html[data-theme="light"] #docs-search { background: #fff; color: #111; border-color: #c9c9d0; }
+html[data-theme="light"] .docs__empty { background: #fff; }

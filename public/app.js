@@ -703,4 +703,30 @@
     if (e.target.closest('[data-work-close-link]')) closeWork();
   });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeWork(); });
+  // 23 Searchable docs FAQ (live filter + accordion reuse)
+  var docsSearch = document.querySelector('#docs-search');
+  var docsList = document.querySelector('#docs-list');
+  if (docsSearch && docsList) {
+    var docsItems = Array.prototype.slice.call(docsList.querySelectorAll('.faq__item'));
+    docsItems.forEach(function (item) {
+      var btn = item.querySelector('.faq__question');
+      if (btn) btn.addEventListener('click', function () {
+        var ex = btn.getAttribute('aria-expanded') === 'true';
+        btn.setAttribute('aria-expanded', ex ? 'false' : 'true');
+        var ans = item.querySelector('.faq__answer');
+        if (ans) ans.hidden = ex;
+      });
+    });
+    docsSearch.addEventListener('input', function () {
+      var q = docsSearch.value.trim().toLowerCase();
+      var visible = 0;
+      docsItems.forEach(function (item) {
+        var hay = ((item.getAttribute('data-q') || '') + ' ' + item.textContent).toLowerCase();
+        var show = !q || hay.indexOf(q) > -1;
+        item.hidden = !show;
+        if (show) visible++;
+      });
+      document.querySelector('#docs-empty').hidden = visible > 0;
+    });
+  }
 })();

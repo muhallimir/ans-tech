@@ -588,6 +588,23 @@
         </div>
     </section>
 
+    <section id="docs-faq" aria-label="Support docs">
+        <h2 class="section__title">Support docs</h2>
+        <p class="section__subtitle">Type to filter. Answers update live.</p>
+        <div class="docs__wrap">
+            <label class="sr-only" for="docs-search">Search support questions</label>
+            <input id="docs-search" type="search" placeholder="Search: domain, payment, update..." autocomplete="off">
+            <div class="faq__list" id="docs-list">
+                <div class="faq__item" data-q="domain transfer dns"><button class="faq__question" aria-expanded="false">How do I point my domain?<span class="faq__icon" aria-hidden="true">+</span></button><div class="faq__answer" hidden><p>We send two DNS records. Add them where you bought the domain, we verify within a day.</p></div></div>
+                <div class="faq__item" data-q="payment stripe paypal mobile money"><button class="faq__question" aria-expanded="false">Which payments do you support?<span class="faq__icon" aria-hidden="true">+</span></button><div class="faq__answer" hidden><p>Stripe, PayPal and mobile-money-ready flows, with order emails and discount codes.</p></div></div>
+                <div class="faq__item" data-q="update edit content care plan"><button class="faq__question" aria-expanded="false">How do content updates work?<span class="faq__icon" aria-hidden="true">+</span></button><div class="faq__answer" hidden><p>Email your text/photos. Starter: pay per edit. Business+: two small edits/month included.</p></div></div>
+                <div class="faq__item" data-q="email login password handover"><button class="faq__question" aria-expanded="false">Do I get all logins?<span class="faq__icon" aria-hidden="true">+</span></button><div class="faq__answer" hidden><p>Yes. Domain, hosting, analytics and a handover video. Everything registered in your name.</p></div></div>
+                <div class="faq__item" data-q="speed slow image seo google"><button class="faq__question" aria-expanded="false">Why is my old site slow on Google?<span class="faq__icon" aria-hidden="true">+</span></button><div class="faq__answer" hidden><p>Usually huge images + no caching. Our speed pass compresses, lazy-loads and fixes titles/sitemap.</p></div></div>
+            </div>
+            <p id="docs-empty" class="docs__empty" hidden>No matches. Try domain, payment, update, login or speed. Or <a href="#contact">ask us</a>.</p>
+        </div>
+    </section>
+
     <!-- Footer Section -->
     <footer class="footer__container">
         <nav class="footer__links" aria-label="Footer">
