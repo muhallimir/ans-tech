@@ -235,7 +235,73 @@
             </div>
         </div>
     </section>
-    <section id="contact" aria-label="Contact"></section>
+    <section id="contact" aria-label="Contact">
+        <h2 class="section__title">Get a quote in 24 hours</h2>
+        <p class="section__subtitle">Tell us about your project. We reply within one business day.</p>
+        <div class="contact__grid">
+            <form id="contact-form" class="contact__form" novalidate>
+                <div class="form__row">
+                    <div class="form__field">
+                        <label for="cf-name">Name</label>
+                        <input id="cf-name" name="name" type="text" autocomplete="name" required minlength="2" placeholder="Your name">
+                        <p class="field__error" id="cf-name-error" hidden>Please enter your name.</p>
+                    </div>
+                    <div class="form__field">
+                        <label for="cf-email">Email</label>
+                        <input id="cf-email" name="email" type="email" autocomplete="email" required placeholder="you@example.com">
+                        <p class="field__error" id="cf-email-error" hidden>Please enter a valid email.</p>
+                    </div>
+                </div>
+                <div class="form__field">
+                    <label for="cf-service">Service needed</label>
+                    <select id="cf-service" name="service" required>
+                        <option value="">Select a service</option>
+                        <option>Business Website</option>
+                        <option>E-Commerce</option>
+                        <option>AI Chat &amp; Automation</option>
+                        <option>Landing Page</option>
+                        <option>SEO &amp; Growth</option>
+                        <option>Care Plan</option>
+                    </select>
+                    <p class="field__error" id="cf-service-error" hidden>Please choose a service.</p>
+                </div>
+                <div class="form__field">
+                    <label for="cf-message">Project details</label>
+                    <textarea id="cf-message" name="message" rows="5" required minlength="10" placeholder="What do you need? Pages, timeline, budget..."></textarea>
+                    <p class="field__error" id="cf-message-error" hidden>Please add at least 10 characters.</p>
+                </div>
+                <button type="submit" class="button contact__submit">Send enquiry</button>
+                <p class="form__status" id="contact-status" role="status" aria-live="polite" hidden></p>
+                <p class="form__hint">No spam, ever. Your details stay with us. Prefer email? <a id="contact-mailto" href="mailto:hello@astech.example?subject=Website%20enquiry">hello@astech.example</a></p>
+            </form>
+            <aside class="contact__aside">
+                <div class="info__card">
+                    <h3>Visit or call</h3>
+                    <ul class="info__list">
+                        <li><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Dar es Salaam, Tanzania (remote-first, worldwide)</li>
+                        <li><i class="fas fa-envelope" aria-hidden="true"></i> hello@astech.example</li>
+                        <li><i class="fab fa-whatsapp" aria-hidden="true"></i> WhatsApp on request after enquiry</li>
+                    </ul>
+                    <h4>Opening hours</h4>
+                    <table class="hours__table">
+                        <tr><th scope="row">Mon - Fri</th><td>09:00 - 18:00 EAT</td></tr>
+                        <tr><th scope="row">Saturday</th><td>10:00 - 14:00 EAT</td></tr>
+                        <tr><th scope="row">Sunday</th><td>Closed</td></tr>
+                    </table>
+                </div>
+                <div class="info__card newsletter__card">
+                    <h3>Get monthly tips</h3>
+                    <p>One short email per month: speed, SEO and sales ideas. No spam.</p>
+                    <form id="newsletter-form" class="newsletter__form" novalidate>
+                        <label class="sr-only" for="nl-email">Email address</label>
+                        <input id="nl-email" name="email" type="email" required placeholder="you@example.com" autocomplete="email">
+                        <button type="submit" class="button">Subscribe</button>
+                    </form>
+                    <p class="form__status" id="newsletter-status" role="status" aria-live="polite" hidden></p>
+                </div>
+            </aside>
+        </div>
+    </section>
 
     <!-- Footer Section -->
     <div class="footer__container">

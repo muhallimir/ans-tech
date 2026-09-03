@@ -207,4 +207,101 @@
       if (answer) answer.hidden = expanded;
     });
   });
+
+  // Contact form: validation + success state (localStorage + mailto fallback)
+  var contactForm = document.querySelector('#contact-form');
+  var contactStatus = document.querySelector('#contact-status');
+
+  function setError(input, errorEl, invalid) {
+    if (!input) return;
+    input.setAttribute('aria-invalid', invalid ? 'true' : 'false');
+    if (errorEl) errorEl.hidden = !invalid;
+  }
+
+  function isEmail(value) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+  }
+
+  function showStatus(el, message) {
+    if (!el) return;
+    el.textContent = message;
+    el.hidden = false;
+  }
+
+  if (contactForm) {
+    contactForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var name = document.querySelector('#cf-name');
+      var email = document.querySelector('#cf-email');
+      var service = document.querySelector('#cf-service');
+      var message = document.querySelector('#cf-message');
+
+      var nameBad = !name.value.trim() || name.value.trim().length < 2;
+      var emailBad = !isEmail(email.value.trim());
+      var serviceBad = !service.value;
+      var messageBad = !message.value.trim() || message.value.trim().length < 10;
+
+      setError(name, document.querySelector('#cf-name-error'), nameBad);
+      setError(email, document.querySelector('#cf-email-error'), emailBad);
+      setError(service, document.querySelector('#cf-service-error'), serviceBad);
+      setError(message, document.querySelector('#cf-message-error'), messageBad);
+
+      if (nameBad || emailBad || serviceBad || messageBad) {
+        var firstBad = nameBad ? name : emailBad ? email : serviceBad ? service : message;
+        if (firstBad.focus) firstBad.focus();
+        return;
+      }
+
+      var lead = {
+        name: name.value.trim(),
+        email: email.value.trim(),
+        service: service.value,
+        message: message.value.trim(),
+        createdAt: new Date().toISOString()
+      };
+
+      try {
+        var key = 'astech-leads';
+        var existing = JSON.parse(localStorage.getItem(key) || '[]');
+        existing.push(lead);
+        localStorage.setItem(key, JSON.stringify(existing));
+      } catch (err) {}
+
+      showStatus(contactStatus, 'Thanks ' + lead.name + "! Your enquiry was saved. We reply within one business day. Prefer email? Use the mailto link below.");
+      contactForm.reset();
+
+      // Mailto fallback: prefill provider email with lead details
+      var mailto = document.querySelector('#contact-mailto');
+      if (mailto) {
+        var subject = encodeURIComponent('Website enquiry: ' + lead.service);
+        var body = encodeURIComponent('Name: ' + lead.name + '\nEmail: ' + lead.email + '\nService: ' + lead.service + '\n\n' + lead.message);
+        mailto.setAttribute('href', 'mailto:hello@astech.example?subject=' + subject + '&body=' + body);
+      }
+    });
+  }
+
+  // Newsletter signup (localStorage)
+  var newsletterForm = document.querySelector('#newsletter-form');
+  var newsletterStatus = document.querySelector('#newsletter-status');
+
+  if (newsletterForm) {
+    newsletterForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var input = document.querySelector('#nl-email');
+      var value = input.value.trim();
+      if (!isEmail(value)) {
+        showStatus(newsletterStatus, 'Please enter a valid email to subscribe.');
+        input.focus();
+        return;
+      }
+      try {
+        var key = 'astech-newsletter';
+        var list = JSON.parse(localStorage.getItem(key) || '[]');
+        if (list.indexOf(value) === -1) list.push(value);
+        localStorage.setItem(key, JSON.stringify(list));
+      } catch (err) {}
+      showStatus(newsletterStatus, 'Subscribed! Watch your inbox for next month\'s tips.');
+      newsletterForm.reset();
+    });
+  }
 })();
