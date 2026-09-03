@@ -768,4 +768,22 @@
   }
   window.addEventListener('scroll', updateProgress, { passive: true });
   updateProgress();
+  // 27 Proposal print view (estimator + booking summary)
+  function refreshProposal() {
+    var pt = document.querySelector('#proposal-text');
+    var pb = document.querySelector('#proposal-booking');
+    if (!pt || !pb) return;
+    try {
+      var est = JSON.parse(localStorage.getItem('astech-estimate') || 'null');
+      pt.textContent = est ? 'Estimate: $' + est.low + '-$' + est.high + ', ~' + est.days + ' days. Valid 30 days.' : 'No estimate yet. Use the estimator above, then come back here to print.';
+      var bks = JSON.parse(localStorage.getItem('astech-bookings') || '[]');
+      var last = bks[bks.length - 1];
+      pb.textContent = last ? 'Booking: ' + last.date + ' at ' + last.time + ' EAT, ref ' + last.ref + ' for ' + last.name + '.' : 'No booking yet. Book a slot above to attach it.';
+    } catch (err) {}
+  }
+  var prBtn = document.querySelector('#proposal-refresh');
+  if (prBtn) prBtn.addEventListener('click', refreshProposal);
+  var printBtn = document.querySelector('#proposal-print');
+  if (printBtn) printBtn.addEventListener('click', function () { refreshProposal(); window.print(); });
+  if (document.querySelector('#proposal-card')) refreshProposal();
 })();

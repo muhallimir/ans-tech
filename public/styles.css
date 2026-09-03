@@ -1479,3 +1479,19 @@ html.high-contrast .service__card, html.high-contrast .price__card, html.high-co
 /* 26 Scroll progress */
 #progress-bar { position: fixed; top: 0; left: 0; height: 4px; width: 0; z-index: 1500; background-image: linear-gradient(90deg, #f77062, #21d4fd); }
 @media (prefers-reduced-motion: reduce) { #progress-bar { display: none; } }
+
+/* 27 Proposal + print */
+#proposal { background: #141414; padding: 4rem 1rem; }
+.proposal__card { max-width: 720px; margin: 0 auto; background: #1e1e1e; border: 1px solid #2c2c2c; border-radius: 12px; padding: 1.5rem; color: #fff; }
+.proposal__card p { color: #d6d6d6; line-height: 1.6; margin-bottom: 0.6rem; }
+.proposal__actions { display: flex; gap: 0.75rem; justify-content: center; margin-top: 1rem; flex-wrap: wrap; }
+html[data-theme="light"] #proposal { background: #f6f6f8; }
+html[data-theme="light"] .proposal__card { background: #fff; border-color: #e2e2e6; color: #111; }
+html[data-theme="light"] .proposal__card p { color: #333; }
+@media print {
+  .navbar, #chat-widget, #cookie-banner, .a11y__bar, #back-to-top, #progress-bar, .proposal__actions { display: none !important; }
+  body { background: #fff !important; }
+  #proposal, .proposal__card { background: #fff !important; color: #000 !important; border: 1px solid #000; }
+  .proposal__card p { color: #000 !important; }
+  #proposal-card { display: block !important; }
+}
