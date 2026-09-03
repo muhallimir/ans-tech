@@ -1280,3 +1280,17 @@ html[data-theme="light"] #case-studies { background: #f6f6f8; }
 html[data-theme="light"] .case__card { background: #fff; border-color: #e2e2e6; color: #1a1a1a; }
 html[data-theme="light"] .case__card p { color: #333; }
 html[data-theme="light"] .modal__content h4 { color: #141414; }
+
+/* 09 Process timeline */
+#process { background: #141414; padding: 5rem 1rem; }
+.timeline { list-style: none; max-width: 720px; margin: 0 auto; position: relative; padding-left: 8px; }
+.timeline::before { content: ""; position: absolute; left: 31px; top: 8px; bottom: 8px; width: 3px; background: linear-gradient(#f77062, #21d4fd); border-radius: 3px; opacity: 0.7; }
+.timeline__step { display: flex; gap: 1rem; background: #1e1e1e; border: 1px solid #2c2c2c; border-radius: 12px; padding: 1.25rem; margin-bottom: 1rem; color: #fff; position: relative; opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.timeline__step.in-view { opacity: 1; transform: none; }
+.timeline__num { flex-shrink: 0; width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.2rem; color: #111; background-image: linear-gradient(to top, #f77062 0%, #fe5196 100%); z-index: 1; }
+.timeline__step h3 { margin-bottom: 0.3rem; }
+.timeline__step p { color: #cfcfcf; line-height: 1.5; }
+.timeline__deliver { color: #21d4fd !important; font-size: 0.92rem; margin-top: 0.4rem; }
+html[data-theme="light"] #process { background: #f6f6f8; }
+html[data-theme="light"] .timeline__step { background: #fff; border-color: #e2e2e6; color: #1a1a1a; }
+html[data-theme="light"] .timeline__step p { color: #333; }

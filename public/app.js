@@ -393,4 +393,18 @@
     if (l) closeCase();
   });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeCase(); });
+  // 09 Process timeline scroll animation
+  var timelineSteps = Array.prototype.slice.call(document.querySelectorAll('.timeline__step'));
+  if ('IntersectionObserver' in window && timelineSteps.length) {
+    var tlObs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { en.target.classList.add('in-view'); tlObs.unobserve(en.target); }
+      });
+    }, { threshold: 0.2 });
+    timelineSteps.forEach(function (s) { tlObs.observe(s); });
+    var reduceMo = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduceMo) timelineSteps.forEach(function (s) { s.classList.add('in-view'); });
+  } else {
+    timelineSteps.forEach(function (s) { s.classList.add('in-view'); });
+  }
 })();
