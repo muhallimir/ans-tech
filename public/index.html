@@ -384,6 +384,21 @@
         </ol>
     </section>
 
+    <section id="team" aria-label="Team">
+        <h2 class="section__title">Meet the team</h2>
+        <p class="section__subtitle">Small senior team. You talk to the people who build.</p>
+        <div class="team__grid">
+            <article class="team__card"><div class="team__avatar" aria-hidden="true">AM</div><h3>Amir M.</h3><p class="team__role">Founder / Web & AI</p><button class="service__btn team__btn" data-team="0">Bio</button><p class="team__social"><a href="#team" aria-label="Amir on X">X</a> - <a href="#team" aria-label="Amir on LinkedIn">LinkedIn</a> - <a href="#team" aria-label="Amir on GitHub">GitHub</a></p></article>
+            <article class="team__card"><div class="team__avatar" aria-hidden="true">SK</div><h3>Sara K.</h3><p class="team__role">Designer / UX</p><button class="service__btn team__btn" data-team="1">Bio</button><p class="team__social"><a href="#team" aria-label="Sara on X">X</a> - <a href="#team" aria-label="Sara on LinkedIn">LinkedIn</a> - <a href="#team" aria-label="Sara on Dribbble">Dribbble</a></p></article>
+            <article class="team__card"><div class="team__avatar" aria-hidden="true">DK</div><h3>David K.</h3><p class="team__role">E-Commerce Dev</p><button class="service__btn team__btn" data-team="2">Bio</button><p class="team__social"><a href="#team" aria-label="David on X">X</a> - <a href="#team" aria-label="David on LinkedIn">LinkedIn</a> - <a href="#team" aria-label="David on GitHub">GitHub</a></p></article>
+            <article class="team__card"><div class="team__avatar" aria-hidden="true">LN</div><h3>Lina N.</h3><p class="team__role">Support / SEO</p><button class="service__btn team__btn" data-team="3">Bio</button><p class="team__social"><a href="#team" aria-label="Lina on X">X</a> - <a href="#team" aria-label="Lina on LinkedIn">LinkedIn</a> - <a href="#team" aria-label="Lina blog">Blog</a></p></article>
+        </div>
+        <div class="modal" id="team-modal" hidden role="dialog" aria-modal="true" aria-labelledby="team-modal-title">
+            <div class="modal__backdrop" data-team-close></div>
+            <div class="modal__content"><button class="modal__close" data-team-close aria-label="Close bio">&times;</button><h3 id="team-modal-title"></h3><p class="case__modal-meta" id="team-modal-role"></p><p id="team-modal-bio"></p></div>
+        </div>
+    </section>
+
     <!-- Footer Section -->
     <footer class="footer__container">
         <nav class="footer__links" aria-label="Footer">

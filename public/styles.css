@@ -1294,3 +1294,14 @@ html[data-theme="light"] .modal__content h4 { color: #141414; }
 html[data-theme="light"] #process { background: #f6f6f8; }
 html[data-theme="light"] .timeline__step { background: #fff; border-color: #e2e2e6; color: #1a1a1a; }
 html[data-theme="light"] .timeline__step p { color: #333; }
+
+/* 10 Team */
+#team { background: #141414; padding: 5rem 1rem; }
+.team__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.25rem; max-width: 1000px; margin: 0 auto; }
+.team__card { background: #1e1e1e; border: 1px solid #2c2c2c; border-radius: 12px; padding: 1.5rem; text-align: center; color: #fff; }
+.team__avatar { width: 72px; height: 72px; border-radius: 50%; margin: 0 auto 0.75rem; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.4rem; color: #111; background-image: linear-gradient(to top, #b721ff 0%, #21d4fd 100%); }
+.team__role { color: #21d4fd; margin: 0.25rem 0 0.75rem; }
+.team__social { margin-top: 0.75rem; font-size: 0.9rem; }
+.team__social a { color: #cfcfcf; }
+html[data-theme="light"] #team { background: #f6f6f8; }
+html[data-theme="light"] .team__card { background: #fff; border-color: #e2e2e6; color: #1a1a1a; }

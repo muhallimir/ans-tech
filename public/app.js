@@ -407,4 +407,31 @@
   } else {
     timelineSteps.forEach(function (s) { s.classList.add('in-view'); });
   }
+  // 10 Team bios modal
+  var TEAM = [
+    { name: 'Amir M. — Founder / Web & AI', role: 'Ships fast vanilla sites + AI chat', bio: '10+ projects. Business websites, shops and lead-capture chat. Replies within one business day, hands over logins and training.' },
+    { name: 'Sara K. — Designer / UX', role: 'Mobile-first layouts that convert', bio: 'Homepage mocks, style passes, copy polish. Two revision rounds, tested at 360px / 768px / desktop.' },
+    { name: 'David K. — E-Commerce Dev', role: 'Catalogues, carts, payments', bio: 'Stripe/PayPal/mobile-money-ready checkout, shipping rules, discount codes and order emails. Staff training included.' },
+    { name: 'Lina N. — Support / SEO', role: 'Care plans + growth', bio: 'Monthly updates, uptime checks, SEO titles and speed fixes. Quarterly report, cancel anytime.' }
+  ];
+  var teamModal = document.querySelector('#team-modal');
+  function openTeam(i) {
+    if (!teamModal) return;
+    var m = TEAM[i];
+    if (!m) return;
+    document.querySelector('#team-modal-title').textContent = m.name;
+    document.querySelector('#team-modal-role').textContent = m.role;
+    document.querySelector('#team-modal-bio').textContent = m.bio;
+    teamModal.hidden = false;
+    document.body.style.overflow = 'hidden';
+    var b = teamModal.querySelector('.modal__close');
+    if (b) b.focus();
+  }
+  function closeTeam() { if (!teamModal || teamModal.hidden) return; teamModal.hidden = true; document.body.style.overflow = ''; }
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest('.team__btn');
+    if (b) { openTeam(parseInt(b.getAttribute('data-team'), 10) || 0); return; }
+    if (e.target.closest('[data-team-close]')) closeTeam();
+  });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeTeam(); });
 })();
