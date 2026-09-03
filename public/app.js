@@ -599,4 +599,55 @@
       if (bkDate) { try { bkDate.min = new Date().toISOString().split('T')[0]; } catch (err2) {} }
     });
   }
+  // 15 Live chat mock with persisted open state
+  var chatFab = document.querySelector('#chat-fab');
+  var chatPanel = document.querySelector('#chat-panel');
+  var chatLog = document.querySelector('#chat-log');
+  var CHAT_KEY = 'astech-chat-open';
+  function chatAdd(text, who) {
+    if (!chatLog) return;
+    var d = document.createElement('div');
+    d.className = 'chat__msg ' + (who || 'bot');
+    d.textContent = text;
+    chatLog.appendChild(d);
+    chatLog.scrollTop = chatLog.scrollHeight;
+  }
+  function botReply(q) {
+    q = (q || '').toLowerCase();
+    if (q.indexOf('pric') > -1 || q === 'pricing') return 'Starter $49/mo, Business $129/mo, Custom on quote. Try the estimator above for your exact range.';
+    if (q.indexOf('time') > -1 || q.indexOf('long') > -1 || q === 'timeline') return 'Landing 3-5 days, business site 1-2 weeks, shop 2-4 weeks. Booking gets you a date today.';
+    if (q.indexOf('support') > -1 || q.indexOf('help') > -1) return 'Care plans cover updates + priority fixes. Email hello@astech.example, we reply in one business day.';
+    if (q.indexOf('human') > -1 || q.indexOf('call') > -1) return 'Leave your email in the contact form and we call back within one business day.';
+    return 'Got it! For pricing ask pricing, for timing ask timeline, for help ask support. Or use Contact below.';
+  }
+  function setChat(open) {
+    if (!chatPanel || !chatFab) return;
+    chatPanel.hidden = !open;
+    chatFab.setAttribute('aria-expanded', open ? 'true' : 'false');
+    chatFab.setAttribute('aria-label', open ? 'Close chat' : 'Open chat');
+    try { localStorage.setItem(CHAT_KEY, open ? '1' : '0'); } catch (err) {}
+    if (open && chatLog && !chatLog.children.length) chatAdd('Hi! I am the A&S demo bot. Ask me about pricing, timeline or support.');
+  }
+  if (chatFab && chatPanel) {
+    var savedOpen = null;
+    try { savedOpen = localStorage.getItem(CHAT_KEY); } catch (err) {}
+    if (savedOpen === '1') setChat(true);
+    chatFab.addEventListener('click', function () { setChat(chatPanel.hidden); });
+    var cc = document.querySelector('#chat-close');
+    if (cc) cc.addEventListener('click', function () { setChat(false); });
+    document.addEventListener('click', function (e) {
+      var q = e.target.closest('.chat__quick button');
+      if (q) { chatAdd(q.textContent, 'user'); chatAdd(botReply(q.getAttribute('data-q')), 'bot'); }
+    });
+    var cf = document.querySelector('#chat-form');
+    if (cf) cf.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var inp = document.querySelector('#chat-input');
+      var v = inp.value.trim();
+      if (!v) return;
+      chatAdd(v, 'user');
+      inp.value = '';
+      setTimeout(function () { chatAdd(botReply(v), 'bot'); }, 400);
+    });
+  }
 })();

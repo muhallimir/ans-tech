@@ -480,6 +480,20 @@
         </form>
     </section>
 
+    <div id="chat-widget" aria-label="Live chat">
+        <button id="chat-fab" aria-label="Open chat" aria-expanded="false">💬</button>
+        <div id="chat-panel" hidden role="dialog" aria-label="Chat with us">
+            <div class="chat__head"><strong>A&S Bot</strong><span>Typically replies instantly</span><button id="chat-close" aria-label="Close chat">&times;</button></div>
+            <div id="chat-log" class="chat__log" aria-live="polite"></div>
+            <div class="chat__quick">
+                <button data-q="pricing">Pricing?</button>
+                <button data-q="timeline">Timeline?</button>
+                <button data-q="support">Support?</button>
+            </div>
+            <form id="chat-form" class="chat__form"><label class="sr-only" for="chat-input">Type a message</label><input id="chat-input" placeholder="Ask pricing, timeline, support..." autocomplete="off"><button type="submit" aria-label="Send">➤</button></form>
+        </div>
+    </div>
+
     <!-- Footer Section -->
     <footer class="footer__container">
         <nav class="footer__links" aria-label="Footer">

@@ -1353,3 +1353,21 @@ html[data-theme="light"] .est__result p { color: #111; }
 html[data-theme="light"] #booking { background: #f6f6f8; }
 html[data-theme="light"] .book__form { background: #fff; border-color: #e2e2e6; color: #1a1a1a; }
 html[data-theme="light"] .book__form .form__field input, html[data-theme="light"] .book__form .form__field select { background: #fff; color: #111; border-color: #c9c9d0; }
+
+/* 15 Chat widget */
+#chat-widget { position: fixed; bottom: 90px; right: 24px; z-index: 1100; }
+#chat-fab { width: 56px; height: 56px; border-radius: 50%; border: none; font-size: 1.6rem; cursor: pointer; background-image: linear-gradient(to top, #f77062 0%, #fe5196 100%); color: #fff; box-shadow: 0 6px 20px rgba(0,0,0,0.4); }
+#chat-panel { position: absolute; bottom: 68px; right: 0; width: 320px; max-width: calc(100vw - 48px); background: #1e1e1e; border: 1px solid #333; border-radius: 12px; overflow: hidden; color: #fff; }
+#chat-panel[hidden] { display: none; }
+.chat__head { background: #2a2a2a; padding: 10px 12px; display: flex; align-items: center; gap: 8px; }
+.chat__head span { font-size: 0.75rem; color: #aaa; flex: 1; }
+.chat__head button { background: transparent; border: none; color: #fff; font-size: 1.4rem; cursor: pointer; }
+.chat__log { height: 220px; overflow-y: auto; padding: 10px; display: flex; flex-direction: column; gap: 8px; }
+.chat__msg { max-width: 85%; padding: 8px 10px; border-radius: 10px; font-size: 0.9rem; line-height: 1.4; }
+.chat__msg.bot { background: #2a2a2a; align-self: flex-start; }
+.chat__msg.user { background: #21d4fd; color: #111; align-self: flex-end; }
+.chat__quick { display: flex; gap: 6px; padding: 8px 10px; }
+.chat__quick button { flex: 1; background: #2a2a2a; border: 1px solid #444; color: #fff; border-radius: 999px; padding: 6px; font-size: 0.8rem; cursor: pointer; }
+.chat__form { display: flex; border-top: 1px solid #333; }
+.chat__form input { flex: 1; background: #141414; border: none; color: #fff; padding: 12px; }
+.chat__form button { background: #f77062; border: none; color: #fff; padding: 0 16px; cursor: pointer; font-size: 1.1rem; }
