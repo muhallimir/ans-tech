@@ -758,4 +758,14 @@
     aCon.setAttribute('aria-pressed', on ? 'true' : 'false');
     try { localStorage.setItem(CONTRAST_KEY, on ? '1' : '0'); } catch (err) {}
   });
+  // 26 Scroll progress bar
+  var progressBar = document.querySelector('#progress-bar');
+  function updateProgress() {
+    if (!progressBar) return;
+    var h = document.documentElement.scrollHeight - window.innerHeight;
+    var p = h > 0 ? (window.scrollY / h) * 100 : 0;
+    progressBar.style.width = p + '%';
+  }
+  window.addEventListener('scroll', updateProgress, { passive: true });
+  updateProgress();
 })();
