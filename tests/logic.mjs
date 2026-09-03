@@ -91,3 +91,12 @@ export function resendRemaining(lastSentAt, now, windowSec) {
   var left = w - Math.floor((n - last) / 1000);
   return left > 0 ? left : 0;
 }
+
+// 39 Engagement modal dismiss: is the modal still suppressed at this moment?
+// `until` is a timestamp in ms. `now` defaults to Date.now().
+export function engageDismissedAt(until, now) {
+  var u = Number(until) || 0;
+  if (!u) return false;
+  var n = Number(now) || Date.now();
+  return n < u;
+}

@@ -1484,6 +1484,16 @@ html[data-theme="light"] .radio__group label { color: #333; }
   #proposal-card { display: block !important; }
 }
 
+/* 39 Engagement modal */
+.engage__modal { position: fixed; inset: 0; z-index: 1400; display: flex; align-items: center; justify-content: center; padding: 1rem; }
+.engage__modal[hidden] { display: none; }
+.engage__backdrop { position: absolute; inset: 0; background: rgba(0,0,0,0.65); }
+.engage__panel { position: relative; background: #1e1e1e; border: 1px solid #2c2c2c; border-radius: 14px; padding: 1.75rem 1.5rem; max-width: 420px; width: 100%; color: #fff; box-shadow: 0 20px 60px rgba(0,0,0,0.7); }
+.engage__panel h3 { margin-top: 0; color: #21d4fd; }
+.engage__close { position: absolute; top: 10px; right: 12px; background: transparent; border: none; color: #fff; font-size: 1.5rem; cursor: pointer; }
+.engage__cta { display: inline-block; margin-top: 1rem; }
+.engage__dismiss { background: none; border: none; color: #999; cursor: pointer; margin-top: 0.6rem; font-size: 0.85rem; text-decoration: underline; }
+
 /* 38 Resource library */
 #resources { background: #141414; padding: 4rem 1rem; }
 .resources__list { list-style: none; max-width: 800px; margin: 0 auto; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }

@@ -420,7 +420,6 @@
   ];
   var resList = document.querySelector('#resources-list');
   if (resList) {
-    resList.innerHTML = '';
     RESOURCES.forEach(function (r) {
       var li = document.createElement('li');
       li.className = 'resource__item';
@@ -1146,5 +1145,68 @@
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape' && mapPanel && !mapPanel.hidden) mapPanel.hidden = true;
     });
+  }
+  // 39 Engagement modal: 45s on page OR scroll to bottom, free audit CTA, dismiss 7 days.
+  var ENGAGE_KEY = 'astech-engage-dismissed-until';
+  var engageModal = document.querySelector('#engage-modal');
+  if (engageModal) {
+    function engageDismissed() {
+      try {
+        var until = parseInt(localStorage.getItem(ENGAGE_KEY) || '0', 10);
+        return until && Date.now() < until;
+      } catch (err) { return false; }
+    }
+    function engageMarkDismissed() {
+      try { localStorage.setItem(ENGAGE_KEY, String(Date.now() + 7 * 24 * 60 * 60 * 1000)); } catch (err) {}
+    }
+    var engageActive = false;
+    var engageTriggered = false;
+    var lastFocus = null;
+    function engageOpen() {
+      if (engageTriggered || engageDismissed()) return;
+      engageTriggered = true;
+      lastFocus = document.activeElement;
+      engageModal.hidden = false;
+      engageActive = true;
+      document.body.style.overflow = 'hidden';
+      var cta = document.querySelector('#engage-cta');
+      if (cta) cta.focus();
+    }
+    function engageClose(mark) {
+      if (!engageActive) return;
+      engageActive = false;
+      engageModal.hidden = true;
+      document.body.style.overflow = '';
+      if (mark) engageMarkDismissed();
+      if (lastFocus && typeof lastFocus.focus === 'function') {
+        try { lastFocus.focus(); } catch (err) {}
+      }
+    }
+    // Click handlers on close affordances.
+    engageModal.addEventListener('click', function (e) {
+      var t = e.target.closest('[data-engage-close]');
+      if (t) engageClose(true);
+    });
+    // ESC + focus trap.
+    document.addEventListener('keydown', function (e) {
+      if (!engageActive) return;
+      if (e.key === 'Escape') { e.preventDefault(); engageClose(true); return; }
+      if (e.key === 'Tab') {
+        var focusables = engageModal.querySelectorAll('a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])');
+        if (focusables.length === 0) return;
+        var first = focusables[0], last = focusables[focusables.length - 1];
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+      }
+    });
+    // Triggers: 45s on page OR scrolled to bottom (whichever first).
+    setTimeout(function () { if (!engageTriggered) engageOpen(); }, 45000);
+    function checkBottom() {
+      if (engageTriggered) return;
+      var sh = document.documentElement.scrollHeight;
+      var y = window.scrollY + window.innerHeight;
+      if (sh > 0 && y >= sh - 80) engageOpen();
+    }
+    window.addEventListener('scroll', checkBottom, { passive: true });
   }
 })();

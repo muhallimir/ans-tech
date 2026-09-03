@@ -845,6 +845,17 @@
         </div>
     </div>
     </footer>
+    <div id="engage-modal" class="engage__modal" hidden role="dialog" aria-modal="true" aria-labelledby="engage-title" aria-describedby="engage-body">
+        <div class="engage__backdrop" data-engage-close></div>
+        <div class="engage__panel">
+            <button class="engage__close" id="engage-close" data-engage-close aria-label="Close free audit offer">&times;</button>
+            <h3 id="engage-title">Free 30-minute audit</h3>
+            <p id="engage-body">Like what you see? Book a free audit. We review your current site or idea and send a short, plain-English report. No pitch.</p>
+            <a class="button engage__cta" id="engage-cta" href="#contact">Book my free audit</a>
+            <button class="engage__dismiss" id="engage-dismiss" data-engage-close>Maybe later</button>
+        </div>
+    </div>
+
     <button id="back-to-top" aria-label="Back to top" title="Back to top">&#8593;</button>
     <!-- 30 Performance: app.js at end of body = non-blocking; vanilla, no framework JS -->
     <script src="app.js" defer></script>

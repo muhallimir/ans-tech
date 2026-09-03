@@ -2,7 +2,7 @@
 
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { isEmail, isPhone, calcEstimate, makeBookingRef, botReply, calcRoi, nextLoadStep, genSixDigitShape, resendRemaining } from './logic.mjs';
+import { isEmail, isPhone, calcEstimate, makeBookingRef, botReply, calcRoi, nextLoadStep, genSixDigitShape, resendRemaining, engageDismissedAt } from './logic.mjs';
 
 test('isEmail accepts well-formed addresses', () => {
   for (const good of ['a@b.co', 'user.name+tag@example.com', 'x@y.io', '  spaced@example.com  ']) {
@@ -208,4 +208,22 @@ test('resendRemaining: garbage window falls back to 0', () => {
   assert.equal(resendRemaining(Date.now(), Date.now(), 0), 0);
   assert.equal(resendRemaining(Date.now(), Date.now(), -10), 0);
   assert.equal(resendRemaining(Date.now(), Date.now(), 'x'), 0);
+});
+
+test('engageDismissedAt: missing or past timestamp means not dismissed', () => {
+  assert.equal(engageDismissedAt(0, Date.now()), false);
+  assert.equal(engageDismissedAt('abc', Date.now()), false);
+  const past = Date.now() - 1000;
+  assert.equal(engageDismissedAt(past, Date.now()), false);
+});
+
+test('engageDismissedAt: future timestamp means dismissed', () => {
+  const future = Date.now() + 7 * 24 * 60 * 60 * 1000;
+  assert.equal(engageDismissedAt(future, Date.now()), true);
+});
+
+test('engageDismissedAt: respects injected now', () => {
+  const t = 1_700_000_000_000;
+  assert.equal(engageDismissedAt(t + 1000, t), true);
+  assert.equal(engageDismissedAt(t - 1, t), false);
 });
