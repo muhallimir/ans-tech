@@ -1484,6 +1484,10 @@ html[data-theme="light"] .radio__group label { color: #333; }
   #proposal-card { display: block !important; }
 }
 
+/* 34 Pricing FAQ */
+.pricing__faq { max-width: 720px; margin: 2rem auto 0; padding: 0 1rem; }
+.pricing__faq h3 { color: #21d4fd; text-align: center; margin-bottom: 1rem; }
+
 /* 33 ROI calculator */
 #roi { background: #141414; padding: 4rem 1rem; }
 .roi__grid { max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
