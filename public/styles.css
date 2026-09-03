@@ -1504,6 +1504,13 @@ html[data-theme="light"] .sitemap__grid a { background: #fff; border-color: #e2e
 .referral__note { color: #cfcfcf; margin-top: 1rem; }
 html[data-theme="light"] #share { background: #f6f6f8; }
 html[data-theme="light"] .referral__note { color: #333; }
+
+/* 31 Contact upgrades */
+.radio__group { border: 1px solid #3a3a3a; border-radius: 8px; padding: 10px 12px; }
+.radio__group legend { color: #fff; font-size: 0.95rem; padding: 0 6px; }
+.radio__group label { display: inline-block; color: #ddd; margin-right: 1rem; cursor: pointer; }
+html[data-theme="light"] .radio__group legend { color: #111; }
+html[data-theme="light"] .radio__group label { color: #333; }
 @media print {
   .navbar, #chat-widget, #cookie-banner, .a11y__bar, #back-to-top, #progress-bar, .proposal__actions { display: none !important; }
   body { background: #fff !important; }

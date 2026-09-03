@@ -294,6 +294,23 @@
                     <textarea id="cf-message" name="message" rows="5" required minlength="10" placeholder="What do you need? Pages, timeline, budget..."></textarea>
                     <p class="field__error" id="cf-message-error" hidden>Please add at least 10 characters.</p>
                 </div>
+                <div class="form__row">
+                    <div class="form__field">
+                        <label for="cf-phone">Phone (optional, e.g. +255...)</label>
+                        <input id="cf-phone" name="phone" type="tel" autocomplete="tel" placeholder="+255 700 000 000">
+                        <p class="field__error" id="cf-phone-error" hidden>Use digits, spaces, + and - (7+ chars).</p>
+                    </div>
+                    <div class="form__field">
+                        <label for="cf-budget">Budget</label>
+                        <select id="cf-budget" name="budget"><option value="">Select budget</option><option>Under $1k</option><option>$1k - $3k</option><option>$3k - $8k</option><option>$8k+</option></select>
+                    </div>
+                </div>
+                <fieldset class="form__field radio__group"><legend>Preferred contact</legend><label><input type="radio" name="cf-pref" value="email" checked> Email</label><label><input type="radio" name="cf-pref" value="phone"> Phone</label><label><input type="radio" name="cf-pref" value="whatsapp"> WhatsApp</label></fieldset>
+                <div class="form__field">
+                    <label for="cf-files">Attachments note (list file names/links; uploads go live after backend)</label>
+                    <input id="cf-files" name="files-note" type="text" placeholder="e.g. logo.png, menu.pdf via Drive link">
+                </div>
+                <div class="form__field" aria-hidden="true" style="position:absolute;left:-9999px;"><label for="cf-company">Company (leave blank)</label><input id="cf-company" name="company" type="text" tabindex="-1" autocomplete="off"></div>
                 <button type="submit" class="button contact__submit">Send enquiry</button>
                 <p class="form__status" id="contact-status" role="status" aria-live="polite" hidden></p>
                 <p class="form__hint">No spam, ever. Your details stay with us. Prefer email? <a id="contact-mailto" href="mailto:hello@astech.example?subject=Website%20enquiry">hello@astech.example</a></p>

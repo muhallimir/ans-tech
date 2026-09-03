@@ -243,14 +243,23 @@
       var emailBad = !isEmail(email.value.trim());
       var serviceBad = !service.value;
       var messageBad = !message.value.trim() || message.value.trim().length < 10;
+      // 31 Contact upgrades: honeypot + phone + pref + budget + files-note
+      var honey = document.querySelector('#cf-company');
+      if (honey && honey.value) { return; }
+      var phone = document.querySelector('#cf-phone');
+      var phoneBad = phone && phone.value.trim() && !/^[+\d][\d\s\-()]{6,}$/.test(phone.value.trim());
+      var budget = document.querySelector('#cf-budget');
+      var prefEl = document.querySelector('input[name="cf-pref"]:checked');
+      var filesNote = document.querySelector('#cf-files');
 
       setError(name, document.querySelector('#cf-name-error'), nameBad);
       setError(email, document.querySelector('#cf-email-error'), emailBad);
       setError(service, document.querySelector('#cf-service-error'), serviceBad);
       setError(message, document.querySelector('#cf-message-error'), messageBad);
+      setError(phone, document.querySelector('#cf-phone-error'), !!phoneBad);
 
-      if (nameBad || emailBad || serviceBad || messageBad) {
-        var firstBad = nameBad ? name : emailBad ? email : serviceBad ? service : message;
+      if (nameBad || emailBad || serviceBad || messageBad || phoneBad) {
+        var firstBad = nameBad ? name : emailBad ? email : serviceBad ? service : messageBad ? message : phone;
         if (firstBad.focus) firstBad.focus();
         return;
       }
@@ -260,6 +269,10 @@
         email: email.value.trim(),
         service: service.value,
         message: message.value.trim(),
+        phone: phone ? phone.value.trim() : '',
+        budget: budget ? budget.value : '',
+        pref: prefEl ? prefEl.value : 'email',
+        filesNote: filesNote ? filesNote.value.trim() : '',
         createdAt: new Date().toISOString()
       };
 
@@ -277,7 +290,7 @@
       var mailto = document.querySelector('#contact-mailto');
       if (mailto) {
         var subject = encodeURIComponent('Website enquiry: ' + lead.service);
-        var body = encodeURIComponent('Name: ' + lead.name + '\nEmail: ' + lead.email + '\nService: ' + lead.service + '\n\n' + lead.message);
+        var body = encodeURIComponent('Name: ' + lead.name + '\nEmail: ' + lead.email + '\nPhone: ' + lead.phone + '\nPref: ' + lead.pref + '\nBudget: ' + lead.budget + '\nService: ' + lead.service + '\nFiles: ' + lead.filesNote + '\n\n' + lead.message);
         mailto.setAttribute('href', 'mailto:hello@astech.example?subject=' + subject + '&body=' + body);
       }
     });
