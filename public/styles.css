@@ -1488,6 +1488,13 @@ html.high-contrast .service__card, html.high-contrast .price__card, html.high-co
 html[data-theme="light"] #proposal { background: #f6f6f8; }
 html[data-theme="light"] .proposal__card { background: #fff; border-color: #e2e2e6; color: #111; }
 html[data-theme="light"] .proposal__card p { color: #333; }
+
+/* 28 Sitemap */
+#sitemap { background: #141414; padding: 4rem 1rem; }
+.sitemap__grid { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; max-width: 900px; margin: 0 auto; }
+.sitemap__grid a { background: #1e1e1e; border: 1px solid #2c2c2c; color: #21d4fd; border-radius: 999px; padding: 8px 16px; text-decoration: none; font-size: 0.9rem; }
+html[data-theme="light"] #sitemap { background: #f6f6f8; }
+html[data-theme="light"] .sitemap__grid a { background: #fff; border-color: #e2e2e6; }
 @media print {
   .navbar, #chat-widget, #cookie-banner, .a11y__bar, #back-to-top, #progress-bar, .proposal__actions { display: none !important; }
   body { background: #fff !important; }
