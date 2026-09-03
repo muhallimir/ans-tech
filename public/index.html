@@ -73,31 +73,104 @@
 
 
     <!-- Services Section -->
-    <div class="services" id="services">
-        <h1>See what the hype is about</h1>
-        <div class="services__container">
-        <div class="services__card">
-            <h2>Experience Bliss</h2>
-            <p>AI Powered Technology</p>
-            <button class="card1_btn"><a href="/">Get Started</a></button>
+    <section class="services" id="services" aria-label="Services">
+        <h2 class="section__title">Services built for clients</h2>
+        <p class="section__subtitle">Pick a service to see deliverables, timeline and what you get.</p>
+        <div class="services__grid">
+        <article class="service__card">
+            <div class="service__icon" aria-hidden="true"><i class="fas fa-laptop-code"></i></div>
+            <h3>Business Websites</h3>
+            <p>Fast, mobile-first marketing sites that turn visitors into enquiries.</p>
+            <button class="service__btn" data-modal-title="Business Websites" data-modal-body="Deliverables: up to 8 pages, contact form, map, WhatsApp click-to-chat, basic SEO. Timeline: 1-2 weeks. Includes: copy polish, image optimisation, launch checklist.">Learn more</button>
+        </article>
+        <article class="service__card">
+            <div class="service__icon" aria-hidden="true"><i class="fas fa-shopping-cart"></i></div>
+            <h3>E-Commerce</h3>
+            <p>Product catalogues, carts and payments ready for mobile shoppers.</p>
+            <button class="service__btn" data-modal-title="E-Commerce" data-modal-body="Deliverables: product catalogue, cart, checkout (Stripe/PayPal/mobile-money ready), order emails. Timeline: 2-4 weeks. Includes: shipping rules, discount codes, staff training video.">Learn more</button>
+        </article>
+        <article class="service__card">
+            <div class="service__icon" aria-hidden="true"><i class="fas fa-robot"></i></div>
+            <h3>AI Chat & Automation</h3>
+            <p>Lead capture, FAQs and booking flows that reply instantly.</p>
+            <button class="service__btn" data-modal-title="AI Chat & Automation" data-modal-body="Deliverables: website chat widget, FAQ answers from your content, lead handoff to email/WhatsApp. Timeline: 1-2 weeks. Includes: fallback to human, weekly lead digest.">Learn more</button>
+        </article>
+        <article class="service__card">
+            <div class="service__icon" aria-hidden="true"><i class="fas fa-mobile-alt"></i></div>
+            <h3>Landing Pages</h3>
+            <p>One-page campaign sites for launches, events and ads.</p>
+            <button class="service__btn" data-modal-title="Landing Pages" data-modal-body="Deliverables: single-page design, signup form, analytics, A/B headline test. Timeline: 3-5 days. Includes: speed optimisation, social share cards.">Learn more</button>
+        </article>
+        <article class="service__card">
+            <div class="service__icon" aria-hidden="true"><i class="fas fa-chart-line"></i></div>
+            <h3>SEO & Growth</h3>
+            <p>Titles, sitemaps and speed fixes so clients find you on Google.</p>
+            <button class="service__btn" data-modal-title="SEO & Growth" data-modal-body="Deliverables: keyword titles, meta descriptions, sitemap.xml, robots.txt, speed pass. Timeline: 1 week. Includes: monthly rank snapshot for 3 months.">Learn more</button>
+        </article>
+        <article class="service__card">
+            <div class="service__icon" aria-hidden="true"><i class="fas fa-tools"></i></div>
+            <h3>Care Plans</h3>
+            <p>Updates, backups and small edits handled every month.</p>
+            <button class="service__btn" data-modal-title="Care Plans" data-modal-body="Deliverables: monthly updates, uptime check, 2 content edits per month, priority fixes. Timeline: ongoing. Includes: quarterly report, cancel anytime.">Learn more</button>
+        </article>
         </div>
-        <div class="services__card">
-            <h2>Are you ready?</h2>
-            <p>Take the leap</p>
-            <button class="card2_btn"><a href="/">Get Started</a></button>
-        </div>     
-        <div class="services__card">
-            <h2>ASTECH</h2>
-            <p>Take the leap</p>
-            <button class="card2_btn"><a href="/">Get Started</a></button>
-        </div>     
-          
-          
+        <div class="modal" id="service-modal" hidden role="dialog" aria-modal="true" aria-labelledby="service-modal-title">
+            <div class="modal__backdrop" data-modal-close></div>
+            <div class="modal__content">
+                <button class="modal__close" data-modal-close aria-label="Close details">&times;</button>
+                <h3 id="service-modal-title"></h3>
+                <p id="service-modal-body"></p>
+                <a href="#contact" class="button modal__cta" data-modal-close-link>Get this service</a>
+            </div>
         </div>
-    </div>
+    </section>
 
-    <!-- Pricing / Testimonials / FAQ / Contact sections (populated in follow-up features) -->
-    <section id="pricing" aria-label="Pricing"></section>
+    <!-- Pricing Section -->
+    <section id="pricing" aria-label="Pricing">
+        <h2 class="section__title">Simple pricing</h2>
+        <p class="section__subtitle">Start small, upgrade when you grow. Yearly plans save two months.</p>
+        <div class="billing__toggle" role="group" aria-label="Billing period">
+            <span id="billing-monthly-label">Monthly</span>
+            <button id="billing-switch" role="switch" aria-checked="false" aria-labelledby="billing-monthly-label billing-yearly-label" aria-label="Toggle yearly billing"><span class="switch__knob"></span></button>
+            <span id="billing-yearly-label">Yearly <em class="save-badge">save 17%</em></span>
+        </div>
+        <div class="pricing__grid">
+            <article class="price__card">
+                <h3>Starter</h3>
+                <p class="price"><span class="price__amount" data-monthly="$49/mo" data-yearly="$490/yr">$49/mo</span></p>
+                <ul>
+                    <li>1-3 page website</li>
+                    <li>Contact form + map</li>
+                    <li>Basic SEO setup</li>
+                    <li>1 revision round</li>
+                </ul>
+                <a href="#contact" class="button button--ghost">Choose Starter</a>
+            </article>
+            <article class="price__card price__card--featured" aria-label="Most popular plan">
+                <p class="popular-badge">Most popular</p>
+                <h3>Business</h3>
+                <p class="price"><span class="price__amount" data-monthly="$129/mo" data-yearly="$1290/yr">$129/mo</span></p>
+                <ul>
+                    <li>Up to 8 pages or shop</li>
+                    <li>Blog + newsletter signup</li>
+                    <li>Analytics + speed pass</li>
+                    <li>Priority support</li>
+                </ul>
+                <a href="#contact" class="button">Choose Business</a>
+            </article>
+            <article class="price__card">
+                <h3>Custom</h3>
+                <p class="price"><span>Let's talk</span></p>
+                <ul>
+                    <li>E-commerce / AI chat</li>
+                    <li>Custom integrations</li>
+                    <li>Training + handover</li>
+                    <li>Care plan included</li>
+                </ul>
+                <a href="#contact" class="button button--ghost">Request quote</a>
+            </article>
+        </div>
+    </section>
     <section id="testimonials" aria-label="Testimonials"></section>
     <section id="faq" aria-label="Frequently asked questions"></section>
     <section id="contact" aria-label="Contact"></section>

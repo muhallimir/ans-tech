@@ -83,4 +83,63 @@
     );
     sections.forEach(function (section) { observer.observe(section); });
   }
+
+  // Service detail modals
+  var modal = document.querySelector('#service-modal');
+  var modalTitle = document.querySelector('#service-modal-title');
+  var modalBody = document.querySelector('#service-modal-body');
+  var lastFocused = null;
+
+  function openModal(title, body) {
+    if (!modal) return;
+    lastFocused = document.activeElement;
+    modalTitle.textContent = title;
+    modalBody.textContent = body;
+    modal.hidden = false;
+    var closeBtn = modal.querySelector('.modal__close');
+    if (closeBtn) closeBtn.focus();
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    if (!modal || modal.hidden) return;
+    modal.hidden = true;
+    document.body.style.overflow = '';
+    if (lastFocused && lastFocused.focus) lastFocused.focus();
+  }
+
+  document.addEventListener('click', function (e) {
+    var openBtn = e.target.closest('.service__btn');
+    if (openBtn) {
+      openModal(openBtn.getAttribute('data-modal-title') || 'Service', openBtn.getAttribute('data-modal-body') || '');
+      return;
+    }
+    if (e.target.closest('[data-modal-close]')) closeModal();
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closeModal();
+  });
+
+  // Pricing monthly/yearly toggle (persisted)
+  var billingSwitch = document.querySelector('#billing-switch');
+  var priceAmounts = Array.prototype.slice.call(document.querySelectorAll('.price__amount'));
+  var BILLING_KEY = 'astech-billing';
+
+  function applyBilling(yearly) {
+    priceAmounts.forEach(function (el) {
+      el.textContent = yearly ? el.getAttribute('data-yearly') : el.getAttribute('data-monthly');
+    });
+    if (billingSwitch) billingSwitch.setAttribute('aria-checked', yearly ? 'true' : 'false');
+    try { localStorage.setItem(BILLING_KEY, yearly ? 'yearly' : 'monthly'); } catch (err) {}
+  }
+
+  if (billingSwitch) {
+    var saved = null;
+    try { saved = localStorage.getItem(BILLING_KEY); } catch (err) {}
+    applyBilling(saved === 'yearly');
+    billingSwitch.addEventListener('click', function () {
+      applyBilling(billingSwitch.getAttribute('aria-checked') !== 'true');
+    });
+  }
 })();
