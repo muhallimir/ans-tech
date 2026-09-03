@@ -16,7 +16,7 @@
 <!-- Navbar Section -->
     <nav class="navbar" aria-label="Main navigation">
     <div class="navbar__container">
-    <a href="#home" id="navbar__logo"><img src="images/Logoc1.png" width="60" height="60" alt="A&S Tech logo">A&S Tech</a>
+    <a href="#home" id="navbar__logo"><img src="images/Logoc1.png" width="60" height="60" alt="A&S Tech logo" loading="eager" decoding="async">A&S Tech</a>
      <button class="navbar__toggle" id="mobile-menu" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="navbar-menu">
         <span class="bar"></span>
         <span class="bar"></span>
@@ -51,6 +51,9 @@
             <a href="#contact" class="button">
             Contact Us</a>
         </li>
+        <li class="navbar__item navbar__theme">
+            <button id="theme-toggle" aria-label="Switch to light mode" aria-pressed="false" title="Toggle light/dark mode">◐</button>
+        </li>
     </ul>
     </div>
     </nav>
@@ -66,7 +69,7 @@
         <button class="main__btn"><a href="#services">Get Started</a></button>
     </div>
     <div class="main__img--container">
-    <img src="images/pic4.svg" alt="Illustration of creative technology solutions" id="main__img" />
+    <img src="images/pic4.svg" alt="Illustration of creative technology solutions" id="main__img" fetchpriority="high" decoding="async" />
             </div>
         </div>
     </div>
@@ -341,7 +344,7 @@
     <div class="social__media">
         <div class="social__media--wrap">
             <div class="footer__logo">
-                <a href="#home" id="footer__logo"><img src="images/Logo.png" width="50" height="50" alt="A&S Tech footer logo">A&S</a> 
+                <a href="#home" id="footer__logo"><img src="images/Logo.png" width="50" height="50" alt="A&S Tech footer logo" loading="lazy" decoding="async">A&S</a> 
             </div>
             <p class="website__rights">A&S Tech 2026. All rights reserved</p>
             <div class="social__icons">

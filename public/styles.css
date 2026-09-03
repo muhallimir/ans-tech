@@ -1124,3 +1124,119 @@ body {
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
 }
+
+/* Theme toggle */
+.navbar__theme {
+  display: flex;
+  align-items: center;
+  height: 80px;
+  padding: 0 0.5rem;
+}
+#theme-toggle {
+  background: #2a2a2a;
+  border: 1px solid #444;
+  color: #fff;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  cursor: pointer;
+  line-height: 1;
+}
+#theme-toggle:hover { border-color: #21d4fd; }
+
+/* Light theme (default is dark) */
+[data-theme="light"] body,
+[data-theme="light"].main,
+html[data-theme="light"] body { background: #f6f6f8; }
+html[data-theme="light"] .main,
+html[data-theme="light"] .main__container,
+html[data-theme="light"] .services,
+html[data-theme="light"] #pricing,
+html[data-theme="light"] #testimonials,
+html[data-theme="light"] #faq,
+html[data-theme="light"] #contact,
+html[data-theme="light"] .footer__container {
+  background: #f6f6f8;
+}
+html[data-theme="light"] .navbar { background: #ffffff; }
+html[data-theme="light"] .navbar__links { color: #1a1a1a; }
+html[data-theme="light"] #navbar__logo { -webkit-text-fill-color: unset; }
+html[data-theme="light"] .main__content p,
+html[data-theme="light"] .section__subtitle,
+html[data-theme="light"] .service__card p,
+html[data-theme="light"] .price__card li,
+html[data-theme="light"] .carousel__slide blockquote,
+html[data-theme="light"] .carousel__slide figcaption,
+html[data-theme="light"] .faq__answer,
+html[data-theme="light"] .info__card,
+html[data-theme="light"] .form__field label {
+  color: #2b2b2b;
+}
+html[data-theme="light"] .service__card,
+html[data-theme="light"] .price__card,
+html[data-theme="light"] .carousel__slide,
+html[data-theme="light"] .faq__item,
+html[data-theme="light"] .contact__form,
+html[data-theme="light"] .info__card,
+html[data-theme="light"] .modal__content {
+  background: #ffffff;
+  border-color: #e2e2e6;
+  color: #1a1a1a;
+}
+html[data-theme="light"] .service__card h3,
+html[data-theme="light"] .price__card h3,
+html[data-theme="light"] .carousel__slide blockquote,
+html[data-theme="light"] .faq__question,
+html[data-theme="light"] .info__card h3,
+html[data-theme="light"] .info__card h4,
+html[data-theme="light"] .modal__content h3,
+html[data-theme="light"] .modal__close {
+  color: #141414;
+}
+html[data-theme="light"] .form__field input,
+html[data-theme="light"] .form__field select,
+html[data-theme="light"] .form__field textarea,
+html[data-theme="light"] .newsletter__form input {
+  background: #fff;
+  border-color: #c9c9d0;
+  color: #141414;
+}
+html[data-theme="light"] .footer__links--items > h2,
+html[data-theme="light"] .footer__links--items a,
+html[data-theme="light"] #footer__logo,
+html[data-theme="light"] .website__rights,
+html[data-theme="light"] .social__icons--links {
+  color: #1a1a1a;
+}
+html[data-theme="light"] #theme-toggle {
+  background: #eeeef2;
+  border-color: #c9c9d0;
+  color: #1a1a1a;
+}
+html[data-theme="light"] .navbar__menu { background: #ffffff; }
+@media screen and (max-width: 960px) {
+  html[data-theme="light"] .navbar__menu.active { background: #ffffff; }
+  html[data-theme="light"] .navbar__toggle .bar { background: #1a1a1a; }
+}
+
+/* Scroll-reveal animations */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.reveal.revealed {
+  opacity: 1;
+  transform: none;
+}
+
+/* Reduced motion: disable smooth scroll, reveals and transitions */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal { opacity: 1; transform: none; transition: none; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

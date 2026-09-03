@@ -30,6 +30,7 @@
   }
 
   // Smooth scroll for in-page anchors (native CSS handles it; JS offset fallback)
+  // Note: prefersReducedMotion is declared below; guard with typeof-safe lookup.
   document.addEventListener('click', function (e) {
     var anchor = e.target.closest('a[href^="#"]');
     if (!anchor) return;
@@ -38,7 +39,8 @@
     var target = document.querySelector(id);
     if (!target) return;
     e.preventDefault();
-    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    target.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
     history.replaceState(null, '', id);
   });
 
@@ -53,7 +55,8 @@
 
   if (backToTop) {
     backToTop.addEventListener('click', function () {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
     });
   }
 
@@ -304,4 +307,56 @@
       newsletterForm.reset();
     });
   }
+
+  // Theme toggle persisted in localStorage (default: dark)
+  var themeToggle = document.querySelector('#theme-toggle');
+  var THEME_KEY = 'astech-theme';
+  var prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function applyTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    if (themeToggle) {
+      var isLight = theme === 'light';
+      themeToggle.setAttribute('aria-pressed', isLight ? 'true' : 'false');
+      themeToggle.setAttribute('aria-label', isLight ? 'Switch to dark mode' : 'Switch to light mode');
+    }
+    try { localStorage.setItem(THEME_KEY, theme); } catch (err) {}
+  }
+
+  var savedTheme = null;
+  try { savedTheme = localStorage.getItem(THEME_KEY); } catch (err) {}
+  applyTheme(savedTheme === 'light' ? 'light' : 'dark');
+
+  if (themeToggle) {
+    themeToggle.addEventListener('click', function () {
+      var next = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+      applyTheme(next);
+    });
+  }
+
+  // Scroll-reveal animations via IntersectionObserver (skip when reduced motion)
+  var revealTargets = Array.prototype.slice.call(
+    document.querySelectorAll('.service__card, .price__card, .carousel, .faq__item, .contact__form, .contact__aside, .section__title, .section__subtitle')
+  );
+
+  if (prefersReducedMotion) {
+    revealTargets.forEach(function (el) { el.classList.add('revealed'); });
+  } else if ('IntersectionObserver' in window && revealTargets.length) {
+    revealTargets.forEach(function (el) { el.classList.add('reveal'); });
+    var revealObserver = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('revealed');
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.12 }
+    );
+    revealTargets.forEach(function (el) { revealObserver.observe(el); });
+  }
+
+  // Reduced motion: stop carousel autoplay
+  if (prefersReducedMotion) stopAutoplay();
 })();
