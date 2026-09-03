@@ -4,44 +4,58 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Next Technology</title>
+    <title>A&S Tech - Creativity & Innovation in Technology</title>
+    <meta name="description" content="A&S Tech builds modern websites, e-commerce and AI-powered solutions for clients.">
     <link rel="stylesheet" href="styles.css" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
     <link rel="stylesheet" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@400;700&display=swap" rel="stylesheet">
+</head>
 <body>
 
 <!-- Navbar Section -->
-    <nav class="navbar">
+    <nav class="navbar" aria-label="Main navigation">
     <div class="navbar__container">
-    <a href="" id="navbar__logo"><img src="images/Logoc1.png" width="60" height="60">A&S Tech</a>
-    </div>
-     <div class="navbar__toggle" id="mobile-menu">
+    <a href="#home" id="navbar__logo"><img src="images/Logoc1.png" width="60" height="60" alt="A&S Tech logo">A&S Tech</a>
+     <button class="navbar__toggle" id="mobile-menu" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="navbar-menu">
         <span class="bar"></span>
         <span class="bar"></span>
         <span class="bar"></span>
-    </div>
-    <ul class="navbar__menu">
+    </button>
+    <ul class="navbar__menu" id="navbar-menu">
         <li class="navbar__item">
-            <a href="/" class="navbar__links">
+            <a href="#home" class="navbar__links">
             Home</a>
         </li>
         <li class="navbar__item">
-            <a href="/tech.html" class="navbar__links">
+            <a href="tech.html" class="navbar__links">
             Tech</a>
         </li>
         <li class="navbar__item">
-            <a href="/" class="navbar__links">
-            Products</a>
+            <a href="#services" class="navbar__links">
+            Services</a>
+        </li>
+        <li class="navbar__item">
+            <a href="#pricing" class="navbar__links">
+            Pricing</a>
+        </li>
+        <li class="navbar__item">
+            <a href="#testimonials" class="navbar__links">
+            Reviews</a>
+        </li>
+        <li class="navbar__item">
+            <a href="#faq" class="navbar__links">
+            FAQ</a>
         </li>
         <li class="navbar__btn">
-            <a href="/" class="button">
-            Sign Up</a>
+            <a href="#contact" class="button">
+            Contact Us</a>
         </li>
     </ul>
+    </div>
     </nav>
 <!-- Main Section -->
-    <div class="main">
+    <div class="main" id="home">
         <div class="main__container">
             <div class="main__content">
         <h1>CREATIVITY &
@@ -49,17 +63,17 @@
         </h1>
         <h2>TECHNOLOGY</h2>
         <p>See what makes us different.</p>
-        <button class="main__btn"><a href="/">Get Started</a></button>
+        <button class="main__btn"><a href="#services">Get Started</a></button>
     </div>
     <div class="main__img--container">
-    <img src="images/pic4.svg" alt="/" id="main__img" />
+    <img src="images/pic4.svg" alt="Illustration of creative technology solutions" id="main__img" />
             </div>
         </div>
     </div>
 
 
     <!-- Services Section -->
-    <div class="services">
+    <div class="services" id="services">
         <h1>See what the hype is about</h1>
         <div class="services__container">
         <div class="services__card">
@@ -81,6 +95,12 @@
           
         </div>
     </div>
+
+    <!-- Pricing / Testimonials / FAQ / Contact sections (populated in follow-up features) -->
+    <section id="pricing" aria-label="Pricing"></section>
+    <section id="testimonials" aria-label="Testimonials"></section>
+    <section id="faq" aria-label="Frequently asked questions"></section>
+    <section id="contact" aria-label="Contact"></section>
 
     <!-- Footer Section -->
     <div class="footer__container">
@@ -120,9 +140,9 @@
     <div class="social__media">
         <div class="social__media--wrap">
             <div class="footer__logo">
-                <a href="/" id="footer__logo"><img src="images/Logo.png" width="50" height="50">A&S</a> 
+                <a href="#home" id="footer__logo"><img src="images/Logo.png" width="50" height="50" alt="A&S Tech footer logo">A&S</a> 
             </div>
-            <p class="website__rights">A&S 2021. All rights reserved™</p>
+            <p class="website__rights">A&S Tech 2026. All rights reserved</p>
             <div class="social__icons">
                 <a href="/" class="social__icons--links" target="_blank">
                 <i class="fab fa-facebook"></i>
@@ -142,6 +162,7 @@
         </div>
     </div>
     </div>
+    <button id="back-to-top" aria-label="Back to top" title="Back to top">&#8593;</button>
     <script src="app.js"></script>
 </body>
 </html> 

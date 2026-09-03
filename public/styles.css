@@ -3,7 +3,15 @@
   margin: 0;
   padding: 0;
   font-family: "Kumbh Sans", sans-serif;
-  font-family: "Share Tech", sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 110px;
+}
+
+body {
+  background: #141414;
 }
 
 .navbar {
@@ -16,6 +24,11 @@
   position: sticky;
   top: 0;
   z-index: 999;
+  transition: box-shadow 0.3s ease;
+}
+
+.navbar.scrolled {
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.45);
 }
 
 .navbar__container {
@@ -100,15 +113,61 @@
   transition: all 0.3s ease;
 }
 
+.navbar__links.active {
+  color: #21d4fd;
+  border-bottom: 2px solid #21d4fd;
+}
+
+.navbar__toggle {
+  display: none;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+}
+
+#back-to-top {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: none;
+  background-image: linear-gradient(to top, #f77062 0%, #fe5196 100%);
+  color: #fff;
+  font-size: 1.4rem;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(12px);
+  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+  z-index: 1000;
+}
+
+#back-to-top.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+#back-to-top:hover {
+  filter: brightness(1.1);
+}
+
 @media screen and (max-width: 960px) {
   .navbar__container {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     height: 80px;
-    z-index: -1;
+    z-index: 1;
     width: 100%;
     max-width: 1300px;
-    padding: 0;
+    padding: 0 24px;
+  }
+  .navbar__toggle {
+    display: block;
   }
   .navbar__menu {
     display: grid;
@@ -155,10 +214,8 @@
     display: table;
   }
   #mobile-menu {
-    position: absolute;
-    top: 20%;
-    right: 5%;
-    transform: translate(5%, 20%);
+    position: static;
+    transform: none;
   }
 
   .navbar__btn {
