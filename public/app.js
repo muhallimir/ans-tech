@@ -729,4 +729,13 @@
       document.querySelector('#docs-empty').hidden = visible > 0;
     });
   }
+  // 24 Cookie consent persisted
+  var cookieBanner = document.querySelector('#cookie-banner');
+  var COOKIE_KEY = 'astech-cookies';
+  function cookieChoice() { try { return localStorage.getItem(COOKIE_KEY); } catch (err) { return 'declined'; } }
+  if (cookieBanner && !cookieChoice()) cookieBanner.hidden = false;
+  var cA = document.querySelector('#cookie-accept');
+  var cD = document.querySelector('#cookie-decline');
+  if (cA) cA.addEventListener('click', function () { try { localStorage.setItem(COOKIE_KEY, 'accepted'); } catch (err) {} cookieBanner.hidden = true; });
+  if (cD) cD.addEventListener('click', function () { try { localStorage.setItem(COOKIE_KEY, 'declined'); } catch (err) {} cookieBanner.hidden = true; });
 })();
