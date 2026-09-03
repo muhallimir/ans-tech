@@ -650,4 +650,30 @@
       setTimeout(function () { chatAdd(botReply(v), 'bot'); }, 400);
     });
   }
+  // 17 Animated stat counters (once, IntersectionObserver)
+  var statNums = Array.prototype.slice.call(document.querySelectorAll('.stat__num'));
+  function animateCount(el) {
+    var target = parseInt(el.getAttribute('data-target'), 10) || 0;
+    var reduceMo2 = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduceMo2) { el.textContent = target; return; }
+    var start = null;
+    var dur = 1200;
+    function tick(ts) {
+      if (!start) start = ts;
+      var p = Math.min((ts - start) / dur, 1);
+      el.textContent = Math.round(target * (1 - Math.pow(1 - p, 3)));
+      if (p < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+  if ('IntersectionObserver' in window && statNums.length) {
+    var statObs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { animateCount(en.target); statObs.unobserve(en.target); }
+      });
+    }, { threshold: 0.5 });
+    statNums.forEach(function (n) { statObs.observe(n); });
+  } else {
+    statNums.forEach(function (n) { n.textContent = n.getAttribute('data-target'); });
+  }
 })();

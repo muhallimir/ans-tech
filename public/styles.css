@@ -1382,3 +1382,12 @@ html[data-theme="light"] .book__form .form__field input, html[data-theme="light"
 @media (prefers-reduced-motion: reduce) { .marquee__track { animation: none; } }
 html[data-theme="light"] #clients { background: #f6f6f8; }
 html[data-theme="light"] .marquee__track span { background: #fff; border-color: #e2e2e6; color: #555; }
+
+/* 17 Stats */
+#stats { background: #141414; padding: 4rem 1rem; }
+.stats__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; max-width: 900px; margin: 0 auto; }
+.stat { background: #1e1e1e; border: 1px solid #2c2c2c; border-radius: 12px; padding: 1.5rem 1rem; text-align: center; color: #fff; }
+.stat strong { font-size: 2rem; color: #21d4fd; }
+.stat p { color: #cfcfcf; margin-top: 0.4rem; }
+html[data-theme="light"] #stats { background: #f6f6f8; }
+html[data-theme="light"] .stat { background: #fff; border-color: #e2e2e6; color: #111; }
