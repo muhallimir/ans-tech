@@ -2,7 +2,7 @@
 
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { isEmail, isPhone, calcEstimate, makeBookingRef, botReply, calcRoi } from './logic.mjs';
+import { isEmail, isPhone, calcEstimate, makeBookingRef, botReply, calcRoi, nextLoadStep } from './logic.mjs';
 
 test('isEmail accepts well-formed addresses', () => {
   for (const good of ['a@b.co', 'user.name+tag@example.com', 'x@y.io', '  spaced@example.com  ']) {
@@ -151,4 +151,25 @@ test('calcRoi: negative inputs are clamped to zero', () => {
   assert.equal(r.current, 0);
   assert.equal(r.uplift, 0);
   assert.equal(r.annual, 0);
+});
+
+test('nextLoadStep: never overshoots the cap', () => {
+  assert.equal(nextLoadStep(75, 80, 50), 80, 'clamped to cap');
+  assert.equal(nextLoadStep(80, 80, 50), 80, 'already at cap');
+  assert.equal(nextLoadStep(0, 80, 20), 20);
+});
+
+test('nextLoadStep: clamps current and cap into 0..100', () => {
+  assert.equal(nextLoadStep(-5, 80, 10), 10);
+  assert.equal(nextLoadStep(0, 200, 10), 10);
+  assert.equal(nextLoadStep(50, 50, -10), 50);
+});
+
+test('nextLoadStep: missing increment is treated as 0', () => {
+  assert.equal(nextLoadStep(20, 80), 20);
+});
+
+test('nextLoadStep: garbage inputs stay finite', () => {
+  const r = nextLoadStep('abc', 'x', 'y');
+  assert.equal(Number.isFinite(r), true);
 });

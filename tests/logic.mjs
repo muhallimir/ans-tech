@@ -60,3 +60,16 @@ export function calcRoi(traffic, cvrPct, aov, upliftPct) {
   var newRev = current + uplift;
   return { current: current, uplift: uplift, newRev: newRev, annual: uplift * 12 };
 }
+
+// 35 Loading bar step: returns the next bar percentage for a tick.
+// Climbs with a randomised amount but stops at the cap. Pure function for tests.
+export function nextLoadStep(current, cap) {
+  var c = Math.max(0, Math.min(100, Number(current) || 0));
+  var capN = Math.max(c, Math.min(100, Number(cap) || 0));
+  if (c >= capN) return c;
+  // Caller passes the increment; we clamp the result. Kept simple so tests can
+  // assert the contract without coupling to Math.random.
+  var inc = arguments[2];
+  if (!Number.isFinite(inc)) inc = 0;
+  return Math.min(capN, c + inc);
+}

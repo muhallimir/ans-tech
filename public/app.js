@@ -772,16 +772,69 @@
     aCon.setAttribute('aria-pressed', on ? 'true' : 'false');
     try { localStorage.setItem(CONTRAST_KEY, on ? '1' : '0'); } catch (err) {}
   });
-  // 26 Scroll progress bar
+  // 26/35 Scroll progress bar + page-load progress + anchor progress
   var progressBar = document.querySelector('#progress-bar');
-  function updateProgress() {
+  var progressMode = 'scroll';
+  var progressTarget = 0;
+  function applyProgress() {
     if (!progressBar) return;
+    progressBar.style.width = progressTarget + '%';
+  }
+  function updateProgress() {
+    if (!progressBar || progressMode !== 'scroll') return;
     var h = document.documentElement.scrollHeight - window.innerHeight;
-    var p = h > 0 ? (window.scrollY / h) * 100 : 0;
-    progressBar.style.width = p + '%';
+    progressTarget = h > 0 ? (window.scrollY / h) * 100 : 0;
+    applyProgress();
   }
   window.addEventListener('scroll', updateProgress, { passive: true });
   updateProgress();
+  // 35 Page-load progress: starts at 0, climbs on DOMContentLoaded, hits 100 on load,
+  // then animates back to 0 and hands control back to scroll mode.
+  function reduceMotionNow() {
+    return window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  }
+  if (progressBar && document.readyState !== 'complete') {
+    progressMode = 'load';
+    progressTarget = 8;
+    applyProgress();
+    var loadTimer = setInterval(function () {
+      if (progressMode !== 'load') { clearInterval(loadTimer); return; }
+      if (progressTarget < 80) progressTarget = Math.min(80, progressTarget + (Math.random() * 12 + 4));
+      applyProgress();
+    }, 120);
+    window.addEventListener('load', function () {
+      clearInterval(loadTimer);
+      progressMode = 'load';
+      progressTarget = 100;
+      applyProgress();
+      setTimeout(function () {
+        progressMode = 'scroll';
+        progressTarget = 0;
+        applyProgress();
+        updateProgress();
+      }, reduceMotionNow() ? 0 : 320);
+    });
+    document.addEventListener('readystatechange', function () {
+      if (document.readyState === 'interactive' && progressMode === 'load' && progressTarget < 50) {
+        progressTarget = 55; applyProgress();
+      }
+    });
+  }
+  // 35 Anchor-click progress: while we are scrolling to an internal anchor, show ~85% then back to scroll mode.
+  document.addEventListener('click', function (e) {
+    if (!progressBar) return;
+    var a = e.target.closest && e.target.closest('a[href^="#"]');
+    if (!a) return;
+    var id = a.getAttribute('href');
+    if (!id || id.length < 2) return;
+    var target = document.querySelector(id);
+    if (!target) return;
+    progressMode = 'anchor';
+    progressTarget = 88;
+    applyProgress();
+    setTimeout(function () { progressMode = 'scroll'; updateProgress(); }, reduceMotionNow() ? 0 : 600);
+    setTimeout(function () { progressMode = 'scroll'; updateProgress(); }, 900);
+  }, true);
   // 27 Proposal print view (estimator + booking summary)
   function refreshProposal() {
     var pt = document.querySelector('#proposal-text');
