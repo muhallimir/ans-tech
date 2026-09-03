@@ -399,6 +399,27 @@
         </div>
     </section>
 
+    <section id="careers" aria-label="Careers">
+        <h2 class="section__title">Careers</h2>
+        <p class="section__subtitle">Remote-first, part-time friendly. Applications stored locally in your browser demo.</p>
+        <div class="jobs__grid">
+            <article class="job__card"><h3>Frontend Assistant</h3><p class="job__meta">Part-time - Remote - HTML/CSS/JS</p><p>Help ship landing pages, compress images, QA on phones.</p></article>
+            <article class="job__card"><h3>Content & SEO Writer</h3><p class="job__meta">Contract - Remote - English</p><p>Titles, meta descriptions, service copy polish.</p></article>
+            <article class="job__card"><h3>Support Intern</h3><p class="job__meta">Internship - Dar es Salaam / Remote</p><p>Reply templates, uptime checks, handover videos.</p></article>
+        </div>
+        <form id="job-form" class="job__form" novalidate>
+            <h3>Apply in 30 seconds</h3>
+            <div class="form__row">
+                <div class="form__field"><label for="job-name">Name</label><input id="job-name" name="name" required minlength="2" placeholder="Your name"><p class="field__error" id="job-name-error" hidden>Enter your name.</p></div>
+                <div class="form__field"><label for="job-email">Email</label><input id="job-email" type="email" required placeholder="you@example.com"><p class="field__error" id="job-email-error" hidden>Enter a valid email.</p></div>
+            </div>
+            <div class="form__field"><label for="job-role">Role</label><select id="job-role" required><option value="">Select a role</option><option>Frontend Assistant</option><option>Content & SEO Writer</option><option>Support Intern</option></select><p class="field__error" id="job-role-error" hidden>Choose a role.</p></div>
+            <div class="form__field"><label for="job-note">One-line pitch</label><textarea id="job-note" rows="3" required minlength="10" placeholder="Why you? Links welcome."></textarea><p class="field__error" id="job-note-error" hidden>At least 10 characters.</p></div>
+            <button class="button" type="submit">Submit application</button>
+            <p class="form__status" id="job-status" role="status" aria-live="polite" hidden></p>
+        </form>
+    </section>
+
     <!-- Footer Section -->
     <footer class="footer__container">
         <nav class="footer__links" aria-label="Footer">

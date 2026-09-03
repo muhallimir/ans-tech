@@ -434,4 +434,34 @@
     if (e.target.closest('[data-team-close]')) closeTeam();
   });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeTeam(); });
+  // 11 Careers application form
+  var jobForm = document.querySelector('#job-form');
+  if (jobForm) {
+    jobForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var n = document.querySelector('#job-name');
+      var em = document.querySelector('#job-email');
+      var r = document.querySelector('#job-role');
+      var no = document.querySelector('#job-note');
+      var badN = !n.value.trim() || n.value.trim().length < 2;
+      var badE = !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em.value.trim());
+      var badR = !r.value;
+      var badNo = !no.value.trim() || no.value.trim().length < 10;
+      document.querySelector('#job-name-error').hidden = !badN;
+      document.querySelector('#job-email-error').hidden = !badE;
+      document.querySelector('#job-role-error').hidden = !badR;
+      document.querySelector('#job-note-error').hidden = !badNo;
+      if (badN || badE || badR || badNo) return;
+      try {
+        var k = 'astech-applications';
+        var arr = JSON.parse(localStorage.getItem(k) || '[]');
+        arr.push({ name: n.value.trim(), email: em.value.trim(), role: r.value, note: no.value.trim(), at: new Date().toISOString() });
+        localStorage.setItem(k, JSON.stringify(arr));
+      } catch (err) {}
+      var st = document.querySelector('#job-status');
+      st.textContent = 'Thanks ' + n.value.trim() + '! Application for ' + r.value + ' received. We reply within 5 business days.';
+      st.hidden = false;
+      jobForm.reset();
+    });
+  }
 })();
