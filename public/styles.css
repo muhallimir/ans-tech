@@ -1468,3 +1468,10 @@ html[data-theme="light"] .docs__empty { background: #fff; }
 .cookie__banner[hidden] { display: none; }
 .cookie__banner p { font-size: 0.92rem; color: #ddd; flex: 1; }
 .cookie__banner div { display: flex; gap: 0.5rem; flex-shrink: 0; }
+
+/* 25 A11y toolbar */
+.a11y__bar { position: fixed; left: 12px; bottom: 16px; z-index: 1200; background: #1e1e1e; border: 1px solid #444; border-radius: 999px; padding: 6px 10px; display: flex; gap: 6px; align-items: center; color: #fff; font-size: 0.85rem; }
+.a11y__bar button { background: #2a2a2a; border: 1px solid #555; color: #fff; border-radius: 999px; padding: 4px 10px; cursor: pointer; font-size: 0.85rem; }
+.a11y__bar button[aria-pressed="true"] { background: #21d4fd; color: #111; border-color: #21d4fd; }
+html.high-contrast body { filter: contrast(1.25); }
+html.high-contrast .service__card, html.high-contrast .price__card, html.high-contrast .case__card { border-color: #fff !important; }

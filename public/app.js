@@ -738,4 +738,24 @@
   var cD = document.querySelector('#cookie-decline');
   if (cA) cA.addEventListener('click', function () { try { localStorage.setItem(COOKIE_KEY, 'accepted'); } catch (err) {} cookieBanner.hidden = true; });
   if (cD) cD.addEventListener('click', function () { try { localStorage.setItem(COOKIE_KEY, 'declined'); } catch (err) {} cookieBanner.hidden = true; });
+  // 25 Accessibility toolbar (font size + contrast persisted)
+  var FONT_KEY = 'astech-font-scale';
+  var CONTRAST_KEY = 'astech-contrast';
+  function applyFont(scale) { document.documentElement.style.fontSize = (16 * scale) + 'px'; }
+  var fontScale = 1;
+  try {
+    fontScale = parseFloat(localStorage.getItem(FONT_KEY)) || 1;
+    if (localStorage.getItem(CONTRAST_KEY) === '1') { document.documentElement.classList.add('high-contrast'); var cb = document.querySelector('#a11y-contrast'); if (cb) cb.setAttribute('aria-pressed', 'true'); }
+  } catch (err) {}
+  applyFont(fontScale);
+  var aMinus = document.querySelector('#a11y-minus');
+  var aPlus = document.querySelector('#a11y-plus');
+  var aCon = document.querySelector('#a11y-contrast');
+  if (aMinus) aMinus.addEventListener('click', function () { fontScale = Math.max(0.9, fontScale - 0.1); applyFont(fontScale); try { localStorage.setItem(FONT_KEY, fontScale); } catch (err) {} });
+  if (aPlus) aPlus.addEventListener('click', function () { fontScale = Math.min(1.25, fontScale + 0.1); applyFont(fontScale); try { localStorage.setItem(FONT_KEY, fontScale); } catch (err) {} });
+  if (aCon) aCon.addEventListener('click', function () {
+    var on = document.documentElement.classList.toggle('high-contrast');
+    aCon.setAttribute('aria-pressed', on ? 'true' : 'false');
+    try { localStorage.setItem(CONTRAST_KEY, on ? '1' : '0'); } catch (err) {}
+  });
 })();
