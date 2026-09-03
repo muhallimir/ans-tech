@@ -1441,3 +1441,14 @@ html[data-theme="light"] .sla__card p, html[data-theme="light"] .sla__note { col
 .uptime__bar span { display: block; height: 100%; background: linear-gradient(90deg, #2ecc71, #21d4fd); }
 .incident__note { color: #999; font-size: 0.9rem; margin-top: 1rem; }
 html[data-theme="light"] .status__card { background: #fff; border-color: #e2e2e6; color: #111; }
+
+/* 22 Changelog */
+#changelog { background: #141414; padding: 4rem 1rem; }
+.log__list { max-width: 720px; margin: 0 auto; display: flex; flex-direction: column; gap: 0.6rem; }
+.log__item { background: #1e1e1e; border: 1px solid #2c2c2c; border-radius: 10px; padding: 0.9rem 1.1rem; color: #fff; }
+.log__item summary { cursor: pointer; }
+.log__item p { color: #cfcfcf; margin-top: 0.5rem; line-height: 1.5; }
+.tag { font-style: normal; background: #2a2a2a; border: 1px solid #444; border-radius: 999px; padding: 2px 10px; font-size: 0.75rem; margin-left: 6px; color: #21d4fd; }
+html[data-theme="light"] #changelog { background: #f6f6f8; }
+html[data-theme="light"] .log__item { background: #fff; border-color: #e2e2e6; color: #111; }
+html[data-theme="light"] .log__item p { color: #333; }
