@@ -409,6 +409,39 @@
       }
     });
   }
+  // 38 Resource library
+  var RESOURCES = [
+    { file: 'speed-checklist.pdf', title: 'Speed checklist (1 page)', type: 'PDF', size: '101 B', updated: 'Aug 2026' },
+    { file: 'seo-starter.pdf', title: 'SEO starter guide', type: 'PDF', size: '97 B', updated: 'Aug 2026' },
+    { file: 'ecommerce-checklist.pdf', title: 'Shop launch checklist', type: 'PDF', size: '105 B', updated: 'Aug 2026' },
+    { file: 'ai-chat-samples.json', title: 'AI chat sample prompts', type: 'JSON', size: '119 B', updated: 'Aug 2026' },
+    { file: 'brand-voice-worksheet.pdf', title: 'Brand voice worksheet', type: 'PDF', size: '107 B', updated: 'Aug 2026' },
+    { file: 'retainer-questions.pdf', title: 'Questions before a retainer', type: 'PDF', size: '104 B', updated: 'Aug 2026' }
+  ];
+  var resList = document.querySelector('#resources-list');
+  if (resList) {
+    resList.innerHTML = '';
+    RESOURCES.forEach(function (r) {
+      var li = document.createElement('li');
+      li.className = 'resource__item';
+      var head = document.createElement('div'); head.className = 'resource__head';
+      var h = document.createElement('h3'); h.textContent = r.title;
+      var badge = document.createElement('span'); badge.className = 'resource__badge'; badge.textContent = r.type;
+      head.appendChild(h); head.appendChild(badge);
+      var meta = document.createElement('p'); meta.className = 'resource__meta';
+      meta.innerHTML = '<span>' + r.size + '</span><span>Last updated: ' + r.updated + '</span>';
+      var desc = document.createElement('p'); desc.className = 'resource__desc';
+      desc.textContent = r.file;
+      var a = document.createElement('a');
+      a.className = 'resource__btn';
+      a.href = 'downloads/' + r.file;
+      a.setAttribute('download', '');
+      a.setAttribute('aria-label', 'Download ' + r.title + ', ' + r.type + ', ' + r.size);
+      a.textContent = 'Download';
+      li.appendChild(head); li.appendChild(meta); li.appendChild(desc); li.appendChild(a);
+      resList.appendChild(li);
+    });
+  }
   if (nlResend) {
     nlResend.addEventListener('click', function () {
       if (nlResendAvailable() > 0) return;
