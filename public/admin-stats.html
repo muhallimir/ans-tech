@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Admin stats - A&amp;S Tech</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" href="images/Logoc1.png" />
+  <style>
+    .adminStats { max-width: 900px; margin: 6rem auto 4rem; padding: 0 1.25rem; color: #fff; }
+    .adminStats h1 { color: #21d4fd; }
+    .stats__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin: 1rem 0 1.5rem; }
+    .stat__card { background: #1e1e1e; border: 1px solid #2c2c2c; border-radius: 10px; padding: 14px; }
+    .stat__card strong { font-size: 1.6rem; color: #21d4fd; display: block; }
+    .stat__card span { font-size: 0.85rem; color: #aaa; }
+    .stats__chart { background: #1e1e1e; border: 1px solid #2c2c2c; border-radius: 10px; padding: 14px; margin-bottom: 1.5rem; }
+    .stats__chart svg { width: 100%; height: 160px; display: block; }
+    .stats__chart .bar { fill: #21d4fd; }
+    .stats__chart text { fill: #cfcfcf; font-size: 12px; }
+    .stats__events { background: #1e1e1e; border: 1px solid #2c2c2c; border-radius: 10px; padding: 14px; }
+    .stats__events table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+    .stats__events th, .stats__events td { padding: 6px 8px; border-bottom: 1px solid #2a2a2a; text-align: left; }
+    .stats__events th { color: #21d4fd; }
+    .stats__toolbar { display: flex; gap: 8px; margin: 1rem 0; }
+    .stats__toolbar button { background: #e25c5c; color: #fff; border: 0; border-radius: 6px; padding: 8px 14px; cursor: pointer; font-weight: 600; }
+  </style>
+</head>
+<body>
+  <main class="adminStats">
+    <h1>Admin stats</h1>
+    <p>This page shows local event counts for the visit. No data leaves your device.</p>
+    <div class="stats__toolbar">
+      <button id="refresh-stats" type="button">Refresh</button>
+      <button id="clear-stats" type="button">Clear events</button>
+    </div>
+    <div class="stats__grid" id="stats-grid"></div>
+    <div class="stats__chart" id="stats-chart"></div>
+    <div class="stats__events">
+      <h2>Recent events (last 20)</h2>
+      <table>
+        <thead><tr><th>Type</th><th>Path</th><th>Meta</th><th>Time</th></tr></thead>
+        <tbody id="stats-events"></tbody>
+      </table>
+    </div>
+  </main>
+  <script src="analytics.js"></script>
+  <script>
+    (function () {
+      var grid = document.getElementById('stats-grid');
+      var chart = document.getElementById('stats-chart');
+      var tbody = document.getElementById('stats-events');
+      function render() {
+        var events = window.astechGetEvents ? window.astechGetEvents() : [];
+        var counts = window.astechGetCounts ? window.astechGetCounts() : {};
+        grid.innerHTML = '';
+        Object.keys(counts).forEach(function (k) {
+          var card = document.createElement('div');
+          card.className = 'stat__card';
+          card.innerHTML = '<strong>' + counts[k] + '</strong><span>' + k.replace('_', ' ') + '</span>';
+          grid.appendChild(card);
+        });
+        // bar chart
+        var keys = Object.keys(counts);
+        var max = Math.max.apply(Math, keys.map(function (k) { return counts[k]; }).concat([1]));
+        var w = 600, h = 160, pad = 28;
+        var barW = (w - pad * 2) / Math.max(1, keys.length);
+        var svg = '<svg viewBox="0 0 ' + w + ' ' + h + '" role="img" aria-label="Event counts by type">';
+        keys.forEach(function (k, i) {
+          var bh = (counts[k] / max) * (h - pad * 2);
+          var x = pad + i * barW + 6;
+          var y = h - pad - bh;
+          svg += '<rect class="bar" x="' + x + '" y="' + y + '" width="' + (barW - 12) + '" height="' + bh + '"></rect>';
+          svg += '<text x="' + (x + (barW - 12) / 2) + '" y="' + (h - pad + 14) + '" text-anchor="middle">' + k + '</text>';
+        });
+        svg += '</svg>';
+        chart.innerHTML = svg;
+        // events
+        tbody.innerHTML = '';
+        events.slice(-20).reverse().forEach(function (e) {
+          var tr = document.createElement('tr');
+          tr.innerHTML = '<td>' + e.type + '</td><td>' + (e.path || '') + '</td><td>' + (e.meta ? JSON.stringify(e.meta) : '') + '</td><td>' + new Date(e.t).toLocaleString() + '</td>';
+          tbody.appendChild(tr);
+        });
+      }
+      document.getElementById('refresh-stats').addEventListener('click', render);
+      document.getElementById('clear-stats').addEventListener('click', function () {
+        if (window.astechClearEvents) window.astechClearEvents();
+        render();
+      });
+      render();
+    })();
+  </script>
+</body>
+</html>
