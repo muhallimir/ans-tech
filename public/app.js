@@ -409,6 +409,60 @@
       }
     });
   }
+  // 41 Testimonial videos (lite-embed + transcript)
+  var VIDEOS = [
+    { id: 'dQw4w9WgXcQ', name: 'Sarah M.', role: 'Boutique owner', transcript: 'Hi, this is Sarah. A and S Tech rebuilt our site in a week. Enquiries doubled, the contact form just works, and the WhatsApp button has paid for itself. Highly recommend.' },
+    { id: 'L_jWHffIx5E', name: 'David K.', role: 'E-commerce seller', transcript: 'David here. The online shop is fast on phones. Checkout is simple and orders come straight to my email. Best decision we made this year.' },
+    { id: 'kJQP7kiw5Fk', name: 'Amelia R.', role: 'Salon manager', transcript: 'Amelia, salon manager. The chat widget answers FAQs instantly. We capture leads even when the shop is closed and we wake up to bookings every morning.' }
+  ];
+  var videoGrid = document.querySelector('#video-grid');
+  function youtubeThumb(id) { return 'https://i.ytimg.com/vi/' + id + '/hqdefault.jpg'; }
+  if (videoGrid) {
+    VIDEOS.forEach(function (v) {
+      var card = document.createElement('article');
+      card.className = 'video__card';
+      var thumb = document.createElement('button');
+      thumb.className = 'video__thumb';
+      thumb.setAttribute('type', 'button');
+      thumb.setAttribute('aria-label', 'Play video testimonial from ' + v.name);
+      thumb.style.backgroundImage = 'url(' + youtubeThumb(v.id) + ')';
+      thumb.innerHTML = '<span class="video__play" aria-hidden="true">&#9654;</span>';
+      card.appendChild(thumb);
+      var cap = document.createElement('div');
+      cap.className = 'video__caption';
+      cap.innerHTML = '<strong>' + v.name + '</strong> <span>' + v.role + '</span>';
+      card.appendChild(cap);
+      var tBtn = document.createElement('button');
+      tBtn.className = 'video__transcript-toggle';
+      tBtn.setAttribute('type', 'button');
+      tBtn.setAttribute('aria-expanded', 'false');
+      tBtn.textContent = 'Show transcript';
+      card.appendChild(tBtn);
+      var tr = document.createElement('p');
+      tr.className = 'video__transcript';
+      tr.hidden = true;
+      tr.textContent = v.transcript;
+      card.appendChild(tr);
+      thumb.addEventListener('click', function () {
+        var frame = document.createElement('div');
+        frame.className = 'video__frame';
+        var ifr = document.createElement('iframe');
+        ifr.src = 'https://www.youtube.com/embed/' + v.id + '?autoplay=1&rel=0';
+        ifr.setAttribute('allow', 'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture');
+        ifr.setAttribute('allowfullscreen', '');
+        ifr.setAttribute('title', v.name + ' testimonial video');
+        frame.appendChild(ifr);
+        card.replaceChild(frame, thumb);
+      });
+      tBtn.addEventListener('click', function () {
+        var open = tBtn.getAttribute('aria-expanded') === 'true';
+        tBtn.setAttribute('aria-expanded', open ? 'false' : 'true');
+        tBtn.textContent = open ? 'Show transcript' : 'Hide transcript';
+        tr.hidden = open;
+      });
+      videoGrid.appendChild(card);
+    });
+  }
   // 38 Resource library
   var RESOURCES = [
     { file: 'speed-checklist.pdf', title: 'Speed checklist (1 page)', type: 'PDF', size: '101 B', updated: 'Aug 2026' },
